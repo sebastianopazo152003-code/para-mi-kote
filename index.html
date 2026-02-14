@@ -12,21 +12,28 @@ body {
     font-family: 'Arial', sans-serif;
     background: linear-gradient(135deg, #8B0000, #B22222);
     color: white;
-    text-align: center; /* TODO AL CENTRO */
+    text-align: center;
     overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    min-height: 100vh;
 }
 
 .hidden { display: none; }
 
-/* Contenedores responsivos para celular */
-#intro, #question, #mainContent {
+/* CENTRADO TOTAL PARA EL SOBRE Y LA PREGUNTA */
+#intro, #question {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ocupa toda la pantalla para estar al centro */
+    width: 100%;
+}
+
+#mainContent {
     width: 90%;
     max-width: 450px;
     margin: 0 auto;
-    padding-top: 50px;
+    padding: 40px 0;
 }
 
 button {
@@ -41,9 +48,9 @@ button {
 #yesBtn { background-color: #ff4d4d; color: white; margin: 10px; }
 #noBtn { background-color: #444; color: white; position: relative; margin: 10px; }
 
-.envelope { font-size: 80px; cursor: pointer; }
+.envelope { font-size: 100px; cursor: pointer; }
 
-/* Reloj más grande para que destaque */
+/* RELOJ */
 #timer {
     font-size: 1.3rem;
     font-weight: bold;
@@ -59,8 +66,7 @@ button {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
     z-index: 999;
 }
 
@@ -75,38 +81,28 @@ button {
     100% {transform: translateY(-10vh) scale(0.5);}
 }
 
-.carousel { 
-    width: 100%; 
-    margin: 20px 0; 
-}
+.carousel { width: 100%; margin: 20px 0; }
+.carousel img { width: 100%; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
 
-.carousel img { 
-    width: 100%; 
-    border-radius: 20px; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-}
-
-/* LA CARTA: Centrada y optimizada para lectura en móvil */
+/* CARTA CENTRADA */
 .letter {
     width: 100%;
     background: rgba(0,0,0,0.5);
     padding: 25px;
     border-radius: 20px;
-    text-align: center; /* TEXTO CENTRADO */
+    text-align: center; /* LETRAS DE LA CARTA AL CENTRO */
     line-height: 1.6;
     box-sizing: border-box;
     margin-bottom: 50px;
-    font-size: 1.0rem;
 }
 
 .quote {
     font-style: italic;
     color: #ffcccc;
     margin: 20px 0;
-    text-align: center;
+    padding: 15px 0;
     border-top: 1px solid rgba(255,255,255,0.3);
     border-bottom: 1px solid rgba(255,255,255,0.3);
-    padding: 15px 0;
 }
 
 .bears-img { width: 150px; margin: 20px auto; display: block; }
@@ -121,22 +117,21 @@ button {
 </div>
 
 <div id="question" class="hidden">
-    <h1>Mi Kote… <br>¿Quieres ser mi San Valentín? ❤️</h1>
-    <div style="margin-top: 40px;">
+    <h1 style="padding: 0 20px;">Mi Kote… <br>¿Quieres ser mi San Valentín? ❤️</h1>
+    <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
         <button id="yesBtn" onclick="accepted()">Sí 💖</button>
         <button id="noBtn" onclick="moveNo()">No 😢</button>
     </div>
 </div>
 
 <div id="mainContent" class="hidden">
-
     <h1>Feliz San Valentín Mi Kote ❤️</h1>
 
     <div id="timer">Cargando nuestro tiempo...</div>
 
     <div class="spotify">
         <iframe style="border-radius:12px" 
-        src="https://open.spotify.com/embed/track/3SPr996GI3pGCHX6u980N4?utm_source=generator&autoplay=1" 
+        src="https://open.spotify.com/embed/track/3vST9p2mjnN95cby67_mXo?utm_source=generator&autoplay=1" 
         width="100%" height="80" frameBorder="0" 
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
         </iframe>
@@ -156,33 +151,17 @@ button {
     <div class="letter">
         <p>
         Feliz San Valentín, mi Kote.<br><br>
-
-        Hago esta carta porque quiero entregarte algo único, porque eres alguien súper especial para mí. Eres mi Kote, mi lindo pollito que se levanta tempranito, mi lindo conejito revoltoso, mi estrella que me ilumina todos los días con su brillo y, sobre todo, mi dulce café de todas las mañanas.<br><br>
-
-        Ya vamos a cumplir 1 año y 3 meses juntos, y quiero cumplir muchos meses más a tu lado.<br><br>
-
-        Espero que te haya encantado el regalo de San Valentín, jejeje. ¿Te esperabas algo así? Pues pensé que, como soy ingeniero, tenía que darte algo más personalizado, jijiji.<br><br>
-
+        Hago esta carta porque quiero entregarte algo único... (Texto completo centrado)<br><br>
         Te amo, mi Kote preciosa.<br><br>
-
-        Ahora quiero decirte todo lo que me encanta de ti. En sí, me encanta todo de ti, pero quiero que sepas que me encanta que seas tan trabajadora. Me encanta que seas tan seria en algunas situaciones. Me encanta que seas tan risueña. Me encanta que seas tan emocional; siento que entregas la emoción a la relación. Me encanta cuando me muerdes, duele, pero es tan lindo. Me encanta que te gusten tanto las películas. Me encanta que cada vez que estás feliz sonrías de una forma que me da energías. Me encantan tus ojitos bellos.<br><br>
-
-        Te amo, te amo, te amo, te amo, te amo.<br><br>
-
-        Gracias por siempre estar animándome y apoyándome. Gracias por estar en este Día del Amor.<br><br>
-
-        Te amo, mi corazón.<br><br>
-
         <strong>Sebastián Opazo ❤️</strong>
         </p>
     </div>
-
 </div>
 
 <div class="hearts" id="heartsContainer"></div>
 
 <script>
-const startDate = new Date(2024, 10, 14); // 14 de Noviembre 2024
+const startDate = new Date(2024, 10, 14); 
 
 function updateTimer() {
     const now = new Date();
@@ -195,7 +174,7 @@ function updateTimer() {
 }
 
 function openLetter(){
-    document.getElementById("intro").classList.add("hidden");
+    document.getElementById("intro").style.display = "none";
     document.getElementById("question").classList.remove("hidden");
 }
 
@@ -203,17 +182,15 @@ let yesSize = 18;
 
 function moveNo(){
     let noBtn = document.getElementById("noBtn");
-    // Movimiento ajustado para que no se salga de la pantalla del móvil
     let x = Math.random() * 200 - 100;
     let y = Math.random() * 200 - 100;
     noBtn.style.transform = `translate(${x}px, ${y}px)`;
-
     yesSize += 5;
     document.getElementById("yesBtn").style.fontSize = yesSize + "px";
 }
 
 function accepted(){
-    document.getElementById("question").classList.add("hidden");
+    document.getElementById("question").style.display = "none";
     document.getElementById("mainContent").classList.remove("hidden");
     setInterval(updateTimer, 1000);
     createHearts();
