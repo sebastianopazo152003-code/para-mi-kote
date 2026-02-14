@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -25,7 +26,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Ocupa toda la pantalla para estar al centro */
+    height: 100vh;
     width: 100%;
 }
 
@@ -45,7 +46,7 @@ button {
     transition: 0.3s;
 }
 
-#yesBtn { background-color: #ff4d4d; color: white; margin: 10px; }
+#yesBtn { background-color: #ff4d4d; color: white; margin: 10px; z-index: 10; }
 #noBtn { background-color: #444; color: white; position: relative; margin: 10px; }
 
 .envelope { font-size: 100px; cursor: pointer; }
@@ -61,36 +62,54 @@ button {
     border: 1px solid white;
 }
 
-.hearts {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    top: 0; left: 0;
-    z-index: 999;
+/* PANEL DE CONTROL DE MÚSICA */
+.audio-player {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 20px;
+    margin: 20px 0;
+    border: 1px solid rgba(255,255,255,0.3);
 }
 
-.heart {
-    position: absolute;
-    color: #ff0000;
-    animation: float 6s linear infinite;
+.player-title { font-size: 14px; margin-bottom: 10px; color: #ffcccc; font-weight: bold; }
+
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
 }
 
+.play-pause-btn {
+    background: white;
+    color: #8B0000;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.volume-slider { cursor: pointer; accent-color: #ff4d4d; width: 80px; }
+
+/* CORAZONES */
+.hearts { position: fixed; width: 100%; height: 100%; pointer-events: none; top: 0; left: 0; z-index: 999; }
+.heart { position: absolute; color: #ff0000; animation: float 6s linear infinite; }
 @keyframes float {
     0% {transform: translateY(100vh) scale(1);}
     100% {transform: translateY(-10vh) scale(0.5);}
 }
 
-.carousel { width: 100%; margin: 20px 0; }
-.carousel img { width: 100%; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+.carousel img { width: 100%; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); margin: 20px 0; }
 
-/* CARTA CENTRADA */
+/* TU CARTA ORIGINAL CENTRADA */
 .letter {
     width: 100%;
     background: rgba(0,0,0,0.5);
     padding: 25px;
     border-radius: 20px;
-    text-align: center; /* LETRAS DE LA CARTA AL CENTRO */
+    text-align: center;
     line-height: 1.6;
     box-sizing: border-box;
     margin-bottom: 50px;
@@ -104,8 +123,6 @@ button {
     border-top: 1px solid rgba(255,255,255,0.3);
     border-bottom: 1px solid rgba(255,255,255,0.3);
 }
-
-.bears-img { width: 150px; margin: 20px auto; display: block; }
 </style>
 </head>
 
@@ -117,8 +134,8 @@ button {
 </div>
 
 <div id="question" class="hidden">
-    <h1 style="padding: 0 20px;">Mi Kote… <br>¿Quieres ser mi San Valentín? ❤️</h1>
-    <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+    <h1>Mi Kote… <br>¿Quieres ser mi San Valentín? ❤️</h1>
+    <div>
         <button id="yesBtn" onclick="accepted()">Sí 💖</button>
         <button id="noBtn" onclick="moveNo()">No 😢</button>
     </div>
@@ -129,12 +146,15 @@ button {
 
     <div id="timer">Cargando nuestro tiempo...</div>
 
-    <div class="spotify">
-        <iframe style="border-radius:12px" 
-        src="https://open.spotify.com/embed/track/3vST9p2mjnN95cby67_mXo?utm_source=generator&autoplay=1" 
-        width="100%" height="80" frameBorder="0" 
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-        </iframe>
+    <div class="audio-player">
+        <div class="player-title">🎵 Arctic Monkeys - I Wanna Be Yours</div>
+        <div class="controls">
+            <button class="play-pause-btn" id="masterPlay" onclick="toggleAudio()">▶</button>
+            <input type="range" class="volume-slider" id="vol" min="0" max="1" step="0.1" value="0.8" oninput="setVolume()">
+        </div>
+        <audio id="cancion" loop>
+            <source src="musica.mp3" type="audio/mpeg">
+        </audio>
     </div>
 
     <div class="quote">
@@ -142,7 +162,7 @@ button {
         <small>— Peeta Mellark</small>
     </div>
 
-    <img src="https://media.tenor.com/7S8WcW_Gf00AAAAM/milk-and-mocha-hug.gif" class="bears-img">
+    <img src="https://media.tenor.com/7S8WcW_Gf00AAAAM/milk-and-mocha-hug.gif" style="width:150px; border-radius:10px;">
 
     <div class="carousel">
         <img id="carouselImage" src="foto1.jpeg">
@@ -151,8 +171,23 @@ button {
     <div class="letter">
         <p>
         Feliz San Valentín, mi Kote.<br><br>
-        Hago esta carta porque quiero entregarte algo único... (Texto completo centrado)<br><br>
+
+        Hago esta carta porque quiero entregarte algo único, porque eres alguien súper especial para mí. Eres mi Kote, mi lindo pollito que se levanta tempranito, mi lindo conejito revoltoso, mi estrella que me ilumina todos los días con su brillo y, sobre todo, mi dulce café de todas las mañanas.<br><br>
+
+        Ya vamos a cumplir 1 año y 3 meses juntos, y quiero cumplir muchos meses más a tu lado.<br><br>
+
+        Espero que te haya encantado el regalo de San Valentín, jejeje. ¿Te esperabas algo así? Pues pensé que, como soy ingeniero, tenía que darte algo más personalizado, jijiji.<br><br>
+
         Te amo, mi Kote preciosa.<br><br>
+
+        Ahora quiero decirte todo lo que me encanta de ti. En sí, me encanta todo de ti, pero quiero que sepas que me encanta que seas tan trabajadora. Me encanta que seas tan seria en algunas situaciones. Me encanta que seas tan risueña. Me encanta que seas tan emocional; siento que entregas la emoción a la relación. Me encanta cuando me muerdes, duele, pero es tan lindo. Me encanta que te gusten tanto las películas. Me encanta que cada vez que estás feliz sonrías de una forma que me da energías. Me encantan tus ojitos bellos.<br><br>
+
+        Te amo, te amo, te amo, te amo, te amo.<br><br>
+
+        Gracias por siempre estar animándome y apoyándome. Gracias por estar en este Día del Amor.<br><br>
+
+        Te amo, mi corazón.<br><br>
+
         <strong>Sebastián Opazo ❤️</strong>
         </p>
     </div>
@@ -161,7 +196,16 @@ button {
 <div class="hearts" id="heartsContainer"></div>
 
 <script>
+const cancion = document.getElementById("cancion");
+const playBtn = document.getElementById("masterPlay");
 const startDate = new Date(2024, 10, 14); 
+
+function toggleAudio() {
+    if (cancion.paused) { cancion.play(); playBtn.innerHTML = "⏸"; }
+    else { cancion.pause(); playBtn.innerHTML = "▶"; }
+}
+
+function setVolume() { cancion.volume = document.getElementById("vol").value; }
 
 function updateTimer() {
     const now = new Date();
@@ -179,7 +223,6 @@ function openLetter(){
 }
 
 let yesSize = 18;
-
 function moveNo(){
     let noBtn = document.getElementById("noBtn");
     let x = Math.random() * 200 - 100;
@@ -194,6 +237,8 @@ function accepted(){
     document.getElementById("mainContent").classList.remove("hidden");
     setInterval(updateTimer, 1000);
     createHearts();
+    cancion.play();
+    playBtn.innerHTML = "⏸";
 }
 
 let images = ["foto1.jpeg","foto2.jpeg","foto3.jpeg","foto4.jpeg","foto5.jpeg"];
@@ -217,6 +262,5 @@ function createHearts(){
     }, 300);
 }
 </script>
-
 </body>
 </html>
