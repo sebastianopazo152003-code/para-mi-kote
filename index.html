@@ -1,231 +1,186 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para mi amor</title>
-    <style>
-        :root {
-            --color-principal: #e60000;
-            --color-fondo: #fff5f5;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Mi Kote ❤️</title>
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: var(--color-fondo);
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-        }
+<style>
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #8B0000, #B22222);
+    color: white;
+    text-align: center;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
 
-        /* Corazones flotantes */
-        .heart {
-            position: absolute;
-            color: var(--color-principal);
-            font-size: 20px;
-            animation: moveUp 4s linear infinite;
-            opacity: 0;
-        }
+.hidden { display: none; }
 
-        @keyframes moveUp {
-            0% { transform: translateY(100vh) scale(0.5); opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
-        }
+/* Estilos de botones y textos centrados */
+#intro, #question, #mainContent {
+    width: 90%;
+    max-width: 400px;
+    margin: auto;
+    padding: 20px 0;
+}
 
-        /* Sobre y Carta */
-        .envelope-wrapper {
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
+button {
+    padding: 15px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.2s;
+    margin: 10px;
+}
 
-        .envelope {
-            width: 200px;
-            height: 130px;
-            background: var(--color-principal);
-            position: relative;
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-        }
+#yesBtn { background-color: #ff4d4d; color: white; z-index: 10; }
+#noBtn { background-color: #444; color: white; position: relative; }
 
-        .envelope::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            width: 0;
-            height: 0;
-            border-left: 100px solid transparent;
-            border-right: 100px solid transparent;
-            border-top: 70px solid var(--color-principal);
-            z-index: 2;
-        }
+.envelope { font-size: 100px; cursor: pointer; margin-top: 50px; display: block; }
 
-        /* Pantallas */
-        .screen {
-            display: none;
-            text-align: center;
-            flex-direction: column;
-            align-items: center;
-            z-index: 10;
-            padding: 20px;
-            max-width: 90%;
-        }
+/* Animación de Corazones Rojos */
+.hearts { position: fixed; width: 100%; height: 100%; pointer-events: none; top: 0; left: 0; z-index: 999; }
+.heart { position: absolute; color: #ff0000; animation: float 5s linear forwards; bottom: -10%; }
 
-        .active { display: flex; }
+@keyframes float {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+}
 
-        .btn-container { margin-top: 20px; position: relative; width: 100%; height: 50px; }
+/* Imagen de los ositos */
+.bears-img { width: 180px; margin: 20px auto; display: block; border-radius: 15px; }
 
-        button {
-            padding: 10px 25px;
-            font-size: 18px;
-            cursor: pointer;
-            border: none;
-            border-radius: 20px;
-            margin: 0 10px;
-        }
+.carousel img { width: 100%; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
 
-        #btnSi { background: var(--color-principal); color: white; }
-        
-        #btnNo { 
-            background: #666; 
-            color: white; 
-            position: absolute;
-            transition: 0.2s;
-        }
+.letter {
+    background: rgba(0,0,0,0.5);
+    padding: 20px;
+    border-radius: 20px;
+    text-align: left;
+    line-height: 1.6;
+    font-size: 15px;
+    margin-top: 20px;
+}
 
-        /* Contenido Final */
-        .content-scroll {
-            max-height: 80vh;
-            overflow-y: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .img-pareja { width: 250px; border-radius: 10px; margin-bottom: 15px; }
-
-        #timer {
-            font-weight: bold;
-            color: var(--color-principal);
-            margin: 15px 0;
-            font-size: 1.1em;
-        }
-
-        .carta-texto {
-            text-align: left;
-            line-height: 1.6;
-            color: #333;
-            white-space: pre-wrap;
-        }
-
-        .frase-pete {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: var(--color-principal);
-            margin-top: 30px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-
-        .osos-img { width: 150px; margin-top: 20px; }
-    </style>
+.quote {
+    font-style: italic;
+    font-weight: bold;
+    color: #ffcccc;
+    margin-bottom: 20px;
+    border-left: 4px solid #fff;
+    padding-left: 10px;
+}
+</style>
 </head>
+
 <body>
 
-    <audio id="musica" loop>
-        <source src="tu-musica.mp3" type="audio/mpeg">
-    </audio>
+<div id="intro">
+    <div class="envelope" onclick="openLetter()">💌</div>
+    <h2 style="margin-top:20px;">Tienes una carta nueva</h2>
+</div>
 
-    <div id="pantalla1" class="screen active">
-        <div class="envelope-wrapper" onclick="abrirSobre()">
-            <div class="envelope"></div>
-            <p style="margin-top: 20px; color: var(--color-principal); font-weight: bold;">Haz clic para abrir</p>
-        </div>
+<div id="question" class="hidden">
+    <h1>Mi Kote… <br>¿Quieres ser mi San Valentín? ❤️</h1>
+    <div style="height: 150px; position: relative; display: flex; justify-content: center; align-items: center;">
+        <button id="yesBtn" onclick="accepted()">Sí 💖</button>
+        <button id="noBtn" onmouseover="moveNo()" onclick="moveNo()">No 😢</button>
+    </div>
+</div>
+
+<div id="mainContent" class="hidden">
+    <h1>Feliz San Valentín Mi Kote ❤️</h1>
+
+    <img src="https://media.tenor.com/7S8WcW_Gf00AAAAM/milk-and-mocha-hug.gif" class="bears-img" alt="Ositos">
+
+    <div class="quote">
+        "Mis pesadillas suelen ser sobre perderte, así que eso me pasa cuando me doy cuenta de que estás a mi lado." <br>
+        <small>— Peeta Mellark</small>
     </div>
 
-    <div id="pantalla2" class="screen">
-        <h1 style="color: var(--color-principal);">¿Quieres ser mi San Valentín? ❤️</h1>
-        <div class="btn-container">
-            <button id="btnSi" onclick="aceptar()">SÍ</button>
-            <button id="btnNo" onmouseover="moverBotonNo()">NO</button>
-        </div>
+    <div class="spotify">
+        <iframe style="border-radius:12px" 
+        src="https://open.spotify.com/embed/track/6p89m9T936Y3I99U69m86e" 
+        width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
     </div>
 
-    <div id="pantalla3" class="screen">
-        <div class="content-scroll">
-            <img src="tu-foto.jpg" alt="Nosotros" class="img-pareja">
-            
-            <div id="timer">Cargando tiempo juntos...</div>
-
-            <div class="carta-texto">
-                Aquí va toda tu carta original...
-                (Copia y pega aquí todo el texto que le escribiste)
-            </div>
-
-            <div class="frase-pete">
-                "Mis pesadillas suelen ser sobre perderte, así que eso me pasa cuando me doy cuenta de que estás a mi lado."
-            </div>
-
-            <img src="https://media.tenor.com/zAt9VpS9v6IAAAAi/bubu-dudu-bubu.gif" class="osos-img" alt="Osos abrazándose">
-        </div>
+    <div class="carousel" style="margin-top:20px;">
+        <img id="carouselImage" src="foto1.jpeg">
     </div>
 
-    <script>
-        // Función para mover el botón NO
-        function moverBotonNo() {
-            const btnNo = document.getElementById('btnNo');
-            const x = Math.random() * (window.innerWidth - btnNo.clientWidth);
-            const y = Math.random() * (window.innerHeight - btnNo.clientHeight);
-            btnNo.style.left = x + 'px';
-            btnNo.style.top = y + 'px';
-        }
+    <div class="letter">
+        <p>
+        Feliz San Valentín, mi Kote.<br><br>
+        Hago esta carta porque quiero entregarte algo único, porque eres alguien súper especial para mí. Eres mi Kote, mi lindo pollito que se levanta tempranito, mi lindo conejito revoltoso, mi estrella que me ilumina todos los días con su brillo y, sobre todo, mi dulce café de todas las mañanas.<br><br>
+        Ya vamos a cumplir 1 año y 3 meses juntos, y quiero cumplir muchos meses más a tu lado.<br><br>
+        Espero que te haya encantado el regalo de San Valentín, jejeje. ¿Te esperabas algo así? Pues pensé que, como soy ingeniero, tenía que darte algo más personalizado, jijiji.<br><br>
+        Te amo, mi Kote preciosa.<br><br>
+        Ahora quiero decirte todo lo que me encanta de ti. En sí, me encanta todo de ti, pero quiero que sepas que me encanta que seas tan trabajadora. Me encanta que seas tan seria en algunas situaciones. Me encanta que seas tan risueña. Me encanta que seas tan emocional; siento que entregas la emoción a la relación. Me encanta cuando me muerdes, duele, pero es tan lindo. Me encanta que te gusten tanto las películas. Me encanta que cada vez que estás feliz sonrías de una forma que me da energías. Me encantan tus ojitos bellos.<br><br>
+        Te amo, te amo, te amo, te amo, te amo.<br><br>
+        Gracias por siempre estar animándome y apoyándome. Gracias por estar en este Día del Amor.<br><br>
+        Te amo, mi corazón.<br><br>
+        <strong>Sebastián Opazo ❤️</strong>
+        </p>
+    </div>
+</div>
 
-        function abrirSobre() {
-            document.getElementById('pantalla1').classList.remove('active');
-            document.getElementById('pantalla2').classList.add('active');
-            document.getElementById('musica').play();
-        }
+<div class="hearts" id="heartsContainer"></div>
 
-        function aceptar() {
-            document.getElementById('pantalla2').classList.remove('active');
-            document.getElementById('pantalla3').classList.add('active');
-            iniciarContador();
-            crearCorazones();
-        }
+<script>
+function openLetter(){
+    document.getElementById("intro").classList.add("hidden");
+    document.getElementById("question").classList.remove("hidden");
+}
 
-        // Contador desde el 19 de Noviembre de 2024
-        function iniciarContador() {
-            const fechaInicio = new Date('November 19, 2024 00:00:00').getTime();
-            
-            setInterval(function() {
-                const ahora = new Date().getTime();
-                const diferencia = ahora - fechaInicio;
+function moveNo(){
+    let noBtn = document.getElementById("noBtn");
+    // Movimiento aleatorio dentro de un rango para que no se salga de la pantalla del celular
+    let x = Math.random() * 200 - 100;
+    let y = Math.random() * 200 - 100;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    
+    // El botón Sí crece un poquito cada vez que intentan darle al No
+    let yesBtn = document.getElementById("yesBtn");
+    let currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+    yesBtn.style.fontSize = (currentSize + 2) + "px";
+}
 
-                const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-                const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-                const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+function accepted(){
+    document.getElementById("question").classList.add("hidden");
+    document.getElementById("mainContent").classList.remove("hidden");
+    createHearts();
+}
 
-                document.getElementById("timer").innerHTML = 
-                    "Llevamos juntos: <br>" + dias + " días, " + horas + " horas, " + minutos + " minutos y " + segundos + " segundos";
-            }, 1000);
-        }
+// Carrusel de tus fotos
+let images = ["foto1.jpeg","foto2.jpeg","foto3.jpeg","foto4.jpeg","foto5.jpeg"];
+let index = 0;
+setInterval(function(){
+    index = (index + 1) % images.length;
+    let imgElement = document.getElementById("carouselImage");
+    if(imgElement) imgElement.src = images[index];
+}, 3000);
 
-        // Animación de corazones
-        function crearCorazones() {
-            setInterval(() => {
-                const heart = document.createElement("div");
-                heart.innerHTML = "❤️";
-                heart.classList.add("heart");
-                heart.style.left = Math.random() * 100 + "vw";
-                heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 5000);
-            }, 300);
-        }
-    </script>
+// Función de corazones ROJOS subiendo
+function createHearts(){
+    const container = document.getElementById("heartsContainer");
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️"; // Corazones rojos
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (Math.random() * 20 + 20) + "px";
+        container.appendChild(heart);
+
+        setTimeout(() => { heart.remove(); }, 5000);
+    }, 400);
+}
+</script>
+
 </body>
 </html>
