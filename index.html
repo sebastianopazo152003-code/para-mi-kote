@@ -16,18 +16,18 @@ body {
 
 .hidden { display: none; }
 
-/* Centrado inicial */
+/* Centrado vertical para el inicio */
 #intro, #question {
     display: flex; flex-direction: column;
     justify-content: center; align-items: center;
     height: 100vh; width: 100%;
 }
 
-/* CONTENIDO APRETADO (Sin espacios muertos) */
+/* Contenido apretado para celular */
 #mainContent {
     width: 95%; max-width: 450px;
     margin: 0 auto;
-    padding: 10px 0; /* Menos espacio arriba */
+    padding: 10px 0;
 }
 
 button {
@@ -36,65 +36,70 @@ button {
     cursor: pointer; transition: 0.3s;
 }
 
-#yesBtn { background-color: #ff4d4d; color: white; margin: 10px; }
+#yesBtn { background-color: #ff4d4d; color: white; margin: 10px; z-index: 10; }
 #noBtn { background-color: #444; color: white; position: relative; }
 
-/* Reloj más compacto */
+.envelope { font-size: 100px; cursor: pointer; }
+
+/* Reloj compacto */
 #timer {
     font-size: 1.2rem; font-weight: bold;
     background: rgba(0, 0, 0, 0.4);
     padding: 15px; border-radius: 15px;
     margin: 10px auto; border: 1px solid white;
+    width: 85%;
 }
 
-/* Reproductor compacto */
+/* Panel de Audio */
 .audio-player {
     background: rgba(0, 0, 0, 0.6);
-    padding: 10px; border-radius: 15px;
-    margin: 5px 0; border: 1px solid rgba(255,255,255,0.3);
+    padding: 15px; border-radius: 20px;
+    margin: 10px auto; width: 85%;
+    border: 1px solid rgba(255,255,255,0.3);
 }
 
-.controls { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.controls { display: flex; align-items: center; justify-content: center; gap: 15px; }
 
-/* Frase pegada a los elementos */
+/* Frase pegada a la foto */
 .quote {
-    font-style: italic; font-size: 0.9rem;
-    color: #ffcccc; margin: 10px 0;
+    font-style: italic; font-size: 1rem;
+    color: #ffcccc; margin: 10px 0 5px 0;
     padding: 10px; border-top: 1px solid rgba(255,255,255,0.2);
 }
 
-/* Fotos más cerca */
+/* Fotos sin espacios muertos */
 .carousel img { 
-    width: 100%; border-radius: 15px; 
-    margin: 5px 0; /* Pegado a la frase */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+    width: 100%; border-radius: 20px; 
+    margin: 5px 0; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
 }
 
-/* Carta sin espacio gigante arriba */
+/* CARTA ORIGINAL COMPLETA Y CENTRADA */
 .letter {
     background: rgba(0,0,0,0.5);
-    padding: 20px; border-radius: 15px;
-    text-align: center; line-height: 1.5;
-    margin: 10px 0 40px 0;
+    padding: 25px; border-radius: 20px;
+    text-align: center; line-height: 1.6;
+    margin: 5px 0 50px 0;
+    font-size: 1.05rem;
 }
 
 .hearts { position: fixed; width: 100%; height: 100%; pointer-events: none; top: 0; z-index: 999; }
 .heart { position: absolute; color: #ff0000; animation: float 6s linear infinite; }
 @keyframes float { 0% {transform: translateY(100vh);} 100% {transform: translateY(-10vh);} }
 
-.bears-img { width: 120px; margin: 5px auto; display: block; }
+.bears-img { width: 130px; margin: 5px auto; display: block; }
 </style>
 </head>
 
 <body>
 
 <div id="intro">
-    <div class="envelope" onclick="openLetter()" style="font-size:80px; cursor:pointer;">💌</div>
+    <div class="envelope" onclick="openLetter()">💌</div>
     <h2>Tienes una carta nueva</h2>
 </div>
 
 <div id="question" class="hidden">
-    <h1>¿Quieres ser mi San Valentín? ❤️</h1>
+    <h1 style="padding: 0 20px;">Mi Kote… <br>¿Quieres ser mi San Valentín? ❤️</h1>
     <div>
         <button id="yesBtn" onclick="accepted()">Sí 💖</button>
         <button id="noBtn" onclick="moveNo()">No 😢</button>
@@ -102,23 +107,24 @@ button {
 </div>
 
 <div id="mainContent" class="hidden">
-    <h2 style="margin: 5px 0;">Para Mi Kote ❤️</h2>
+    <h1 style="margin-bottom: 5px;">Feliz San Valentín Mi Kote ❤️</h1>
 
-    <div id="timer">Cargando...</div>
+    <div id="timer">Cargando nuestro tiempo...</div>
 
     <div class="audio-player">
-        <div style="font-size:12px; margin-bottom:5px;">🎵 I Wanna Be Yours - Arctic Monkeys</div>
+        <div style="font-size:14px; margin-bottom:10px; font-weight:bold;">🎵 Arctic Monkeys - I Wanna Be Yours</div>
         <div class="controls">
-            <button onclick="toggleAudio()" id="masterPlay" style="width:40px; height:40px; border-radius:50%; border:none; cursor:pointer;">▶</button>
-            <input type="range" id="vol" min="0" max="1" step="0.1" value="0.8" oninput="setVolume()" style="accent-color:#ff4d4d;">
+            <button onclick="toggleAudio()" id="masterPlay" style="width:45px; height:45px; border-radius:50%; border:none; cursor:pointer; background:white; color:#8B0000; font-size:20px;">▶</button>
+            <input type="range" id="vol" min="0" max="1" step="0.1" value="0.8" oninput="setVolume()" style="accent-color:#ff4d4d; width:100px;">
         </div>
         <audio id="cancion" loop>
-            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-        </audio>
+            <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Tours/Enthusiast/Tours_-_01_-_Enthusiast.mp3" type="audio/mpeg">
+            </audio>
     </div>
 
     <div class="quote">
-        "Mis pesadillas suelen ser sobre perderte, así que eso me pasa cuando me doy cuenta de que estás a mi lado."
+        "Mis pesadillas suelen ser sobre perderte, así que eso me pasa cuando me doy cuenta de que estás a mi lado." <br>
+        <small>— Peeta Mellark</small>
     </div>
 
     <div class="carousel">
@@ -130,9 +136,14 @@ button {
     <div class="letter">
         <p>
         Feliz San Valentín, mi Kote.<br><br>
-        Eres mi pollito que se levanta tempranito, mi conejito revoltoso y mi dulce café de todas las mañanas. Ya vamos a cumplir 1 año y 3 meses juntos y quiero muchos más.<br><br>
-        Como soy ingeniero, quería darte algo personalizado. Me encanta todo de ti: lo trabajadora, lo risueña y tus ojitos bellos.<br><br>
-        Te amo, te amo, te amo.<br><br>
+        Hago esta carta porque quiero entregarte algo único, porque eres alguien súper especial para mí. Eres mi Kote, mi lindo pollito que se levanta tempranito, mi lindo conejito revoltoso, mi estrella que me ilumina todos los días con su brillo y, sobre todo, mi dulce café de todas las mañanas.<br><br>
+        Ya vamos a cumplir 1 año y 3 meses juntos, y quiero cumplir muchos meses más a tu lado.<br><br>
+        Espero que te haya encantado el regalo de San Valentín, jejeje. ¿Te esperabas algo así? Pues pensé que, como soy ingeniero, tenía que darte algo más personalizado, jijiji.<br><br>
+        Te amo, mi Kote preciosa.<br><br>
+        Ahora quiero decirte todo lo que me encanta de ti. En sí, me encanta todo de ti, pero quiero que sepas que me encanta que seas tan trabajadora. Me encanta que seas tan seria en algunas situaciones. Me encanta que seas tan risueña. Me encanta que seas tan emocional; siento que entregas la emoción a la relación. Me encanta cuando me muerdes, duele, pero es tan lindo. Me encanta que te gusten tanto las películas. Me encanta que cada vez que estás feliz sonrías de una forma que me da energías. Me encantan tus ojitos bellos.<br><br>
+        Te amo, te amo, te amo, te amo, te amo.<br><br>
+        Gracias por siempre estar animándome y apoyándome. Gracias por estar en este Día del Amor.<br><br>
+        Te amo, mi corazón.<br><br>
         <strong>Sebastián Opazo ❤️</strong>
         </p>
     </div>
@@ -173,7 +184,7 @@ function moveNo(){
     let x = Math.random() * 160 - 80;
     let y = Math.random() * 160 - 80;
     noBtn.style.transform = `translate(${x}px, ${y}px)`;
-    yesSize += 4;
+    yesSize += 6;
     document.getElementById("yesBtn").style.fontSize = yesSize + "px";
 }
 
