@@ -1,248 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Mi Kote 💖</title>
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;}
-
-body{
-background:black;
-color:white;
-text-align:center;
-overflow-x:hidden;
-}
-
-/* 🌌 Fondo estrellas */
-body::before{
-content:"";
-position:fixed;
-width:200%;
-height:200%;
-background:radial-gradient(white 1px, transparent 1px);
-background-size:50px 50px;
-animation:stars 60s linear infinite;
-opacity:0.3;
-z-index:-1;
-}
-@keyframes stars{
-from{transform:translateY(0);}
-to{transform:translateY(-500px);}
-}
-
-/* 🎵 Spotify */
-.spotify{
-margin-top:30px;
-display:flex;
-justify-content:center;
-}
-
-/* 💌 Carta */
-.sobre{
-margin:60px auto;
-width:90%;
-max-width:550px;
-perspective:1000px;
-cursor:pointer;
-}
-
-.tapa{
-height:120px;
-background:#ff004c;
-border-radius:10px 10px 0 0;
-transform-origin:top;
-transition:1s;
-}
-
-.carta{
-background:white;
-color:#333;
-padding:30px;
-border-radius:0 0 10px 10px;
-transform:translateY(-120px);
-transition:1s;
-}
-
-.abierto .tapa{transform:rotateX(-180deg);}
-.abierto .carta{transform:translateY(0);}
-
-h1{color:#ff004c;margin-bottom:10px;}
-
-/* Árbol */
-.arbol{margin:20px auto;width:120px;height:150px;position:relative;}
-.tronco{width:20px;height:50px;background:#5a2d0c;position:absolute;bottom:0;left:50%;transform:translateX(-50%);}
-.copa{width:120px;height:100px;background:#ff004c;border-radius:50%;position:absolute;bottom:40px;left:50%;transform:translateX(-50%);animation:latido 2s infinite;}
-@keyframes latido{
-0%{transform:translateX(-50%) scale(1);}
-50%{transform:translateX(-50%) scale(1.05);}
-100%{transform:translateX(-50%) scale(1);}
-}
-
-/* Reloj */
-#reloj{margin-top:15px;font-size:20px;color:#ff004c;font-weight:bold;}
-
-/* Botones */
-.buttons{margin-top:20px;}
-button{
-padding:12px 25px;
-margin:10px;
-border:none;
-border-radius:25px;
-font-size:16px;
-cursor:pointer;
-transition:0.3s;
-}
-
-#yesBtn{background:#ff004c;color:white;}
-#noBtn{background:gray;color:white;}
-
-button:hover{transform:scale(1.1);}
-
-#respuesta{margin-top:15px;color:#ff004c;font-weight:bold;}
-
-/* Galería */
-.galeria{
-margin-top:40px;
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:15px;
-}
-
-.galeria img{
-width:150px;
-border-radius:15px;
-transition:0.3s;
-}
-
-.galeria img:hover{
-transform:scale(1.1);
-}
-</style>
+    <meta charset="UTF-8">
+    <title>Para el amor de mi vida 💖</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- 🎵 Spotify -->
-<div class="spotify">
-<iframe style="border-radius:12px"
-src="https://open.spotify.com/embed/track/5XeFesFbtLpXzIVDNQP22n"
-width="300"
-height="80"
-frameBorder="0"
-allowfullscreen=""
-allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-</iframe>
-</div>
+<div class="cielo"></div>
 
-<!-- 💌 Carta -->
 <div class="sobre" id="sobre">
-<div class="tapa"></div>
-<div class="carta">
+    <div class="tapa"></div>
 
-<h1>Para Mi Kote 💖</h1>
+    <div class="carta">
+        <h1>Para el amor de mi vida 💌</h1>
 
-<p>Feliz San Valentín Mi Kote. Hice esta carta porque quiero entregarte algo único, porque eres alguien súper especial para mí.</p>
+        <p>
+            Desde que llegaste a mi vida todo cambió…
+        </p>
 
-<p><strong>"Mis pesadillas son sobre perderte a ti. Pero se me pasa cuando veo que estás a mi lado"</strong></p>
+        <p class="frase">
+            "Mis pesadillas son sobre perderte a ti.
+            Pero se me pasa cuando veo que estás a mi lado"
+        </p>
 
-<div class="arbol">
-<div class="tronco"></div>
-<div class="copa"></div>
+        <div class="contador">
+            <h2>Mi amor por ti comenzó hace...</h2>
+            <div id="reloj">
+                <span id="dias">0</span> días
+                <span id="horas">0</span> horas
+                <span id="minutos">0</span> minutos
+                <span id="segundos">0</span> segundos
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button id="yesBtn">Sí 💖</button>
+            <button id="noBtn">No 😢</button>
+        </div>
+
+        <p id="respuesta"></p>
+    </div>
 </div>
 
-<h3>Estamos juntos hace...</h3>
-<div id="reloj"></div>
+<audio id="musica" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
 
-<div class="buttons">
-<button id="yesBtn">Sí 💖</button>
-<button id="noBtn">No 😢</button>
-</div>
-
-<div id="respuesta"></div>
-
-</div>
-</div>
-
-<!-- 🖼️ Galería -->
-<div class="galeria">
-<img src="foto1.jpeg">
-<img src="foto2.jpeg">
-<img src="foto3.jpeg">
-<img src="foto4.jpeg">
-<img src="foto5.jpeg">
-</div>
-
-<script>
-/* Abrir carta */
-document.getElementById("sobre").addEventListener("click", function(){
-this.classList.toggle("abierto");
-});
-
-/* Contador */
-const fechaInicio = new Date("2024-11-19T00:00:00");
-
-function actualizarReloj(){
-const ahora = new Date();
-const diferencia = ahora - fechaInicio;
-
-const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-const horas = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
-const minutos = Math.floor((diferencia / (1000 * 60)) % 60);
-const segundos = Math.floor((diferencia / 1000) % 60);
-
-document.getElementById("reloj").innerHTML =
-`${dias} días ${horas} horas ${minutos} minutos ${segundos} segundos 💖`;
-}
-
-setInterval(actualizarReloj, 1000);
-
-/* Botones */
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-const respuesta = document.getElementById("respuesta");
-
-yesBtn.addEventListener("click", function(){
-yesBtn.style.transform = "scale(1.3)";
-respuesta.innerHTML = "Sabía que dirías que sí 💖✨";
-confeti();
-});
-
-noBtn.addEventListener("click", function(){
-noBtn.style.position = "absolute";
-noBtn.style.left = Math.random()*80 + "%";
-noBtn.style.top = Math.random()*80 + "%";
-});
-
-/* Confeti simple */
-function confeti(){
-for(let i=0;i<100;i++){
-let conf = document.createElement("div");
-conf.style.position="fixed";
-conf.style.width="5px";
-conf.style.height="5px";
-conf.style.background="hsl("+Math.random()*360+"deg,100%,50%)";
-conf.style.left=Math.random()*100+"%";
-conf.style.top="-10px";
-conf.style.opacity=1;
-conf.style.transition="2s";
-document.body.appendChild(conf);
-
-setTimeout(()=>{
-conf.style.top="100%";
-conf.style.opacity=0;
-},10);
-
-setTimeout(()=>{
-conf.remove();
-},2000);
-}
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
-
-
