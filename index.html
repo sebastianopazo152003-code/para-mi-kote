@@ -1,210 +1,204 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Mi Kote ❤️</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Persona Favorita</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;500&display=swap');
 
-<style>
-body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #8B0000, #B22222);
-    color: white;
-    text-align: center;
-    overflow-x: hidden;
-}
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffeef2;
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
 
-.hidden {
-    display: none;
-}
+        /* Contenedor de la propuesta */
+        #propuesta {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+        }
 
-button {
-    padding: 15px 30px;
-    font-size: 18px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: 0.3s;
-}
+        /* Contenido oculto hasta que diga Sí */
+        #contenido-sorpresa {
+            display: none;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            padding: 20px;
+        }
 
-#yesBtn {
-    background-color: #ff4d4d;
-    color: white;
-}
+        /* Estilo de la Foto */
+        .foto-pareja {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            border: 5px solid white;
+        }
 
-#noBtn {
-    background-color: #444;
-    color: white;
-    position: relative;
-}
+        /* Línea de tiempo / Contador */
+        #contador {
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.2);
+        }
 
-.envelope {
-    font-size: 80px;
-    cursor: pointer;
-    margin-top: 100px;
-}
+        .tiempo-unidad {
+            display: inline-block;
+            margin: 0 5px;
+        }
 
-.hearts {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    top: 0;
-    left: 0;
-}
+        .numero {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #d63384;
+        }
 
-.heart {
-    position: absolute;
-    color: #3da5ff;
-    animation: float 6s linear infinite;
-}
+        /* Carta */
+        .carta {
+            background: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            text-align: left;
+            line-height: 1.6;
+            position: relative;
+            margin-bottom: 30px;
+        }
 
-@keyframes float {
-    0% {transform: translateY(100vh) scale(1);}
-    100% {transform: translateY(-10vh) scale(0.5);}
-}
+        /* Frase de Peeta Mellark */
+        .frase-peeta {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #ffffff;
+            background: #ffb7c5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
 
-.carousel {
-    width: 80%;
-    margin: 20px auto;
-}
+        /* Ositos Milk y Mocha */
+        .ositos {
+            width: 200px;
+            margin: 20px 0;
+        }
 
-.carousel img {
-    width: 100%;
-    border-radius: 20px;
-}
+        /* Animación de Corazones */
+        .corazon-flotante {
+            position: fixed;
+            bottom: -10px;
+            color: #ff4d6d;
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            animation: subir 5s linear forwards;
+        }
 
-.spotify {
-    margin-top: 20px;
-}
+        @keyframes subir {
+            to {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
 
-.letter {
-    width: 80%;
-    margin: 30px auto;
-    background: rgba(0,0,0,0.4);
-    padding: 20px;
-    border-radius: 20px;
-    text-align: left;
-    line-height: 1.6;
-}
-</style>
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 50px;
+            background-color: #ff4d6d;
+            color: white;
+            transition: 0.3s;
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- SOBRE -->
-<div id="intro">
-    <div class="envelope" onclick="openLetter()">💌</div>
-    <h2>Tienes una carta nueva</h2>
-</div>
-
-<!-- PREGUNTA -->
-<div id="question" class="hidden">
-    <h1>Mi Kote… ¿Quieres ser mi San Valentín? ❤️</h1>
-    <br>
-    <button id="yesBtn" onclick="accepted()">Sí 💖</button>
-    <button id="noBtn" onclick="moveNo()">No 😢</button>
-</div>
-
-<!-- CONTENIDO FINAL -->
-<div id="mainContent" class="hidden">
-
-    <h1>Feliz San Valentín Mi Kote ❤️</h1>
-
-    <!-- Spotify -->
-    <div class="spotify">
-        <iframe style="border-radius:12px"
-        src="https://open.spotify.com/embed/track/5XeFesFbtLpXzIVDNQP22n"
-        width="300"
-        height="80"
-        frameBorder="0"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-        </iframe>
+    <div id="propuesta">
+        <h1>¿Quieres ver lo que preparé para ti?</h1>
+        <button onclick="mostrarTodo()">¡SÍ! ❤️</button>
     </div>
 
-    <!-- Carrusel -->
-    <div class="carousel">
-        <img id="carouselImage" src="foto1.jpeg">
+    <div id="contenido-sorpresa">
+        
+        <img src="tu-foto.jpg" alt="Nosotros" class="foto-pareja">
+
+        <div id="contador">
+            <h3>Llevamos juntos:</h3>
+            <div id="reloj"></div>
+        </div>
+
+        <div class="carta">
+            <p>
+                <strong>Querida [Su Nombre]:</strong><br><br>
+                Escribe aquí todo lo que le quieres decir. Este es el espacio para tu carta personalizada que aparecerá sobre la frase final.
+                <br><br>
+                Siempre tuyo.
+            </p>
+        </div>
+
+        <div class="frase-peeta">
+            "Mis pesadillas suelen ser sobre perderte, así que me siento mejor cuando me doy cuenta de que estás a mi lado."
+        </div>
+
+        <img src="https://media.tenor.com/7S_H-p1Uj3AAAAAi/milk-and-mocha-bear-couple.gif" alt="Ositos" class="ositos">
+
     </div>
 
-    <!-- Carta -->
-    <div class="letter">
-        <p>
-        Feliz San Valentín, mi Kote.<br><br>
+    <script>
+        function mostrarTodo() {
+            document.getElementById('propuesta').style.display = 'none';
+            document.getElementById('contenido-sorpresa').style.display = 'block';
+            iniciarContador();
+            setInterval(crearCorazon, 300);
+        }
 
-        Hago esta carta porque quiero entregarte algo único, porque eres alguien súper especial para mí. Eres mi Kote, mi lindo pollito que se levanta tempranito, mi lindo conejito revoltoso, mi estrella que me ilumina todos los días con su brillo y, sobre todo, mi dulce café de todas las mañanas.<br><br>
+        function iniciarContador() {
+            const fechaInicio = new Date('November 19, 2024 00:00:00').getTime();
 
-        Ya vamos a cumplir 1 año y 3 meses juntos, y quiero cumplir muchos meses más a tu lado.<br><br>
+            setInterval(function() {
+                const ahora = new Date().getTime();
+                const diferencia = ahora - fechaInicio;
 
-        Espero que te haya encantado el regalo de San Valentín, jejeje. ¿Te esperabas algo así? Pues pensé que, como soy ingeniero, tenía que darte algo más personalizado, jijiji.<br><br>
+                const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+                const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+                const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
 
-        Te amo, mi Kote preciosa.<br><br>
+                document.getElementById("reloj").innerHTML = `
+                    <div class="tiempo-unidad"><span class="numero">${dias}</span> días</div>
+                    <div class="tiempo-unidad"><span class="numero">${horas}</span> hs</div>
+                    <div class="tiempo-unidad"><span class="numero">${minutos}</span> min</div>
+                    <div class="tiempo-unidad"><span class="numero">${segundos}</span> seg</div>
+                `;
+            }, 1000);
+        }
 
-        Ahora quiero decirte todo lo que me encanta de ti. En sí, me encanta todo de ti, pero quiero que sepas que me encanta que seas tan trabajadora. Me encanta que seas tan seria en algunas situaciones. Me encanta que seas tan risueña. Me encanta que seas tan emocional; siento que entregas la emoción a la relación. Me encanta cuando me muerdes, duele, pero es tan lindo. Me encanta que te gusten tanto las películas. Me encanta que cada vez que estás feliz sonrías de una forma que me da energías. Me encantan tus ojitos bellos.<br><br>
+        function crearCorazon() {
+            const corazon = document.createElement('div');
+            corazon.classList.add('corazon-flotante');
+            corazon.innerHTML = '❤️';
+            corazon.style.left = Math.random() * 100 + 'vw';
+            corazon.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.body.appendChild(corazon);
 
-        Te amo, te amo, te amo, te amo, te amo.<br><br>
-
-        Gracias por siempre estar animándome y apoyándome. Gracias por estar en este Día del Amor.<br><br>
-
-        Te amo, mi corazón.<br><br>
-
-        Sebastián Opazo ❤️
-        </p>
-    </div>
-
-</div>
-
-<div class="hearts" id="heartsContainer"></div>
-
-<script>
-function openLetter(){
-    document.getElementById("intro").classList.add("hidden");
-    document.getElementById("question").classList.remove("hidden");
-}
-
-let yesSize = 18;
-
-function moveNo(){
-    let noBtn = document.getElementById("noBtn");
-    let x = Math.random() * 300 - 150;
-    let y = Math.random() * 200 - 100;
-    noBtn.style.transform = `translate(${x}px, ${y}px)`;
-
-    yesSize += 5;
-    document.getElementById("yesBtn").style.fontSize = yesSize + "px";
-}
-
-function accepted(){
-    document.getElementById("question").classList.add("hidden");
-    document.getElementById("mainContent").classList.remove("hidden");
-    createHearts();
-}
-
-let images = ["foto1.jpeg","foto2.jpeg","foto3.jpeg","foto4.jpeg","foto5.jpeg"];
-let index = 0;
-
-setInterval(function(){
-    index = (index + 1) % images.length;
-    document.getElementById("carouselImage").src = images[index];
-}, 3000);
-
-function createHearts(){
-    const container = document.getElementById("heartsContainer");
-    setInterval(() => {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "💙";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = (Math.random() * 20 + 20) + "px";
-        container.appendChild(heart);
-
-        setTimeout(() => {
-            heart.remove();
-        }, 6000);
-    }, 300);
-}
-</script>
-
+            setTimeout(() => {
+                corazon.remove();
+            }, 5000);
+        }
+    </script>
 </body>
 </html>
