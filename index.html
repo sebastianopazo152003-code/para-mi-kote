@@ -9,7 +9,7 @@
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #8B0000, #B22222);
+    background: linear-gradient(135deg, #121212, #8B0000); /* Un toque más oscuro estilo Spotify */
     color: white;
     text-align: center;
     overflow-x: hidden;
@@ -21,7 +21,6 @@ body {
 
 .hidden { display: none; }
 
-/* Estilos de botones y textos centrados */
 #intro, #question, #mainContent {
     width: 90%;
     max-width: 400px;
@@ -29,6 +28,7 @@ body {
     padding: 20px 0;
 }
 
+/* Botones principales */
 button {
     padding: 15px 25px;
     font-size: 18px;
@@ -36,46 +36,67 @@ button {
     border-radius: 30px;
     cursor: pointer;
     transition: 0.2s;
-    margin: 10px;
 }
 
-#yesBtn { background-color: #ff4d4d; color: white; z-index: 10; }
-#noBtn { background-color: #444; color: white; position: relative; }
+#yesBtn { background-color: #1DB954; color: white; z-index: 10; font-weight: bold; } /* Verde Spotify */
+#noBtn { background-color: #444; color: white; position: absolute; }
 
 .envelope { font-size: 100px; cursor: pointer; margin-top: 50px; display: block; }
 
-/* Animación de Corazones Rojos */
-.hearts { position: fixed; width: 100%; height: 100%; pointer-events: none; top: 0; left: 0; z-index: 999; }
-.heart { position: absolute; color: #ff0000; animation: float 5s linear forwards; bottom: -10%; }
+/* Reloj */
+#timer {
+    font-size: 1.1rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 15px;
+    margin: 20px 0;
+    border: 1px solid rgba(255,255,255,0.2);
+}
 
+/* Reproductor estilo Spotify */
+.spotify-player {
+    background: #282828;
+    padding: 15px;
+    border-radius: 15px;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.player-info { display: flex; align-items: center; width: 100%; margin-bottom: 10px; }
+.player-info img { width: 50px; height: 50px; border-radius: 5px; margin-right: 15px; }
+.track-details { text-align: left; }
+.track-name { font-weight: bold; font-size: 14px; display: block; }
+.artist-name { font-size: 12px; color: #b3b3b3; }
+
+.controls { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
+.play-btn { background: white; color: black; border-radius: 50%; width: 40px; height: 40px; border: none; font-size: 20px; cursor: pointer; }
+
+input[type=range] { cursor: pointer; accent-color: #1DB954; width: 100px; }
+
+/* Corazones */
+.heart { position: fixed; color: #ff0000; animation: float 5s linear forwards; bottom: -10%; z-index: 999; pointer-events: none; }
 @keyframes float {
     0% { transform: translateY(0) scale(1); opacity: 1; }
     100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
 }
 
-/* Imagen de los ositos */
 .bears-img { width: 180px; margin: 20px auto; display: block; border-radius: 15px; }
-
-.carousel img { width: 100%; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+.carousel img { width: 100%; border-radius: 20px; margin-top: 20px; }
 
 .letter {
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.6);
     padding: 20px;
     border-radius: 20px;
     text-align: left;
-    line-height: 1.6;
     font-size: 15px;
     margin-top: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
-.quote {
-    font-style: italic;
-    font-weight: bold;
-    color: #ffcccc;
-    margin-bottom: 20px;
-    border-left: 4px solid #fff;
-    padding-left: 10px;
-}
+.quote { font-style: italic; color: #ffcccc; margin: 20px 0; border-left: 4px solid #1DB954; padding-left: 10px; text-align: left; }
 </style>
 </head>
 
@@ -83,13 +104,13 @@ button {
 
 <div id="intro">
     <div class="envelope" onclick="openLetter()">💌</div>
-    <h2 style="margin-top:20px;">Tienes una carta nueva</h2>
+    <h2>Tienes una carta nueva</h2>
 </div>
 
 <div id="question" class="hidden">
     <h1>Mi Kote… <br>¿Quieres ser mi San Valentín? ❤️</h1>
-    <div style="height: 150px; position: relative; display: flex; justify-content: center; align-items: center;">
-        <button id="yesBtn" onclick="accepted()">Sí 💖</button>
+    <div style="height: 300px; width: 100%; position: relative; margin-top: 50px;">
+        <button id="yesBtn" onclick="accepted()">SÍ, ACEPTO 💖</button>
         <button id="noBtn" onmouseover="moveNo()" onclick="moveNo()">No 😢</button>
     </div>
 </div>
@@ -97,42 +118,67 @@ button {
 <div id="mainContent" class="hidden">
     <h1>Feliz San Valentín Mi Kote ❤️</h1>
 
-    <img src="https://media.tenor.com/7S8WcW_Gf00AAAAM/milk-and-mocha-hug.gif" class="bears-img" alt="Ositos">
+    <div id="timer">Contando nuestro tiempo...</div>
+
+    <div class="spotify-player">
+        <div class="player-info">
+            <img src="https://upload.wikimedia.org/wikipedia/en/0/04/Arctic_Monkeys_-_AM.png" alt="AM Album">
+            <div class="track-details">
+                <span class="track-name">I Wanna Be Yours</span>
+                <span class="artist-name">Arctic Monkeys</span>
+            </div>
+        </div>
+        <div class="controls">
+            <button class="play-btn" id="playPause" onclick="togglePlay()">▶</button>
+            <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="0.5" onchange="changeVolume()">
+        </div>
+        <audio id="myAudio" loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            </audio>
+    </div>
+
+    <img src="https://media.tenor.com/7S8WcW_Gf00AAAAM/milk-and-mocha-hug.gif" class="bears-img">
 
     <div class="quote">
         "Mis pesadillas suelen ser sobre perderte, así que eso me pasa cuando me doy cuenta de que estás a mi lado." <br>
         <small>— Peeta Mellark</small>
     </div>
 
-    <div class="spotify">
-        <iframe style="border-radius:12px" 
-        src="https://open.spotify.com/embed/track/6p89m9T936Y3I99U69m86e" 
-        width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-    </div>
-
-    <div class="carousel" style="margin-top:20px;">
+    <div class="carousel">
         <img id="carouselImage" src="foto1.jpeg">
     </div>
 
     <div class="letter">
         <p>
         Feliz San Valentín, mi Kote.<br><br>
-        Hago esta carta porque quiero entregarte algo único, porque eres alguien súper especial para mí. Eres mi Kote, mi lindo pollito que se levanta tempranito, mi lindo conejito revoltoso, mi estrella que me ilumina todos los días con su brillo y, sobre todo, mi dulce café de todas las mañanas.<br><br>
-        Ya vamos a cumplir 1 año y 3 meses juntos, y quiero cumplir muchos meses más a tu lado.<br><br>
-        Espero que te haya encantado el regalo de San Valentín, jejeje. ¿Te esperabas algo así? Pues pensé que, como soy ingeniero, tenía que darte algo más personalizado, jijiji.<br><br>
-        Te amo, mi Kote preciosa.<br><br>
-        Ahora quiero decirte todo lo que me encanta de ti. En sí, me encanta todo de ti, pero quiero que sepas que me encanta que seas tan trabajadora. Me encanta que seas tan seria en algunas situaciones. Me encanta que seas tan risueña. Me encanta que seas tan emocional; siento que entregas la emoción a la relación. Me encanta cuando me muerdes, duele, pero es tan lindo. Me encanta que te gusten tanto las películas. Me encanta que cada vez que estás feliz sonrías de una forma que me da energías. Me encantan tus ojitos bellos.<br><br>
-        Te amo, te amo, te amo, te amo, te amo.<br><br>
-        Gracias por siempre estar animándome y apoyándome. Gracias por estar en este Día del Amor.<br><br>
-        Te amo, mi corazón.<br><br>
+        Hago esta carta porque quiero entregarte algo único... <br><br>
+        Eres mi Kote, mi lindo pollito que se levanta tempranito, mi conejito revoltoso, mi estrella y mi dulce café de todas las mañanas.<br><br>
+        Ya vamos a cumplir 1 año y 3 meses juntos, y quiero cumplir muchos más.<br><br>
+        Te amo, mi Kote preciosa. Gracias por tus ojitos bellos.<br><br>
         <strong>Sebastián Opazo ❤️</strong>
         </p>
     </div>
 </div>
 
-<div class="hearts" id="heartsContainer"></div>
+<div id="heartsContainer"></div>
 
 <script>
+const audio = document.getElementById("myAudio");
+const playPauseBtn = document.getElementById("playPause");
+
+// FECHA DE INICIO: 14 de Noviembre 2024
+const startDate = new Date(2024, 10, 14); 
+
+function updateTimer() {
+    const now = new Date();
+    const diff = now - startDate;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const mins = Math.floor((diff / (1000 * 60)) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+    document.getElementById("timer").innerHTML = `Llevamos juntos:<br>${days} días, ${hours}h, ${mins}m y ${secs}s ❤️`;
+}
+
 function openLetter(){
     document.getElementById("intro").classList.add("hidden");
     document.getElementById("question").classList.remove("hidden");
@@ -140,46 +186,58 @@ function openLetter(){
 
 function moveNo(){
     let noBtn = document.getElementById("noBtn");
-    // Movimiento aleatorio dentro de un rango para que no se salga de la pantalla del celular
-    let x = Math.random() * 200 - 100;
-    let y = Math.random() * 200 - 100;
-    noBtn.style.transform = `translate(${x}px, ${y}px)`;
-    
-    // El botón Sí crece un poquito cada vez que intentan darle al No
-    let yesBtn = document.getElementById("yesBtn");
-    let currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
-    yesBtn.style.fontSize = (currentSize + 2) + "px";
+    let container = document.getElementById("question");
+    let maxX = container.clientWidth - noBtn.clientWidth;
+    let maxY = 250; 
+    let newX = Math.random() * maxX;
+    let newY = Math.random() * maxY;
+    noBtn.style.left = newX + "px";
+    noBtn.style.top = newY + "px";
 }
 
 function accepted(){
     document.getElementById("question").classList.add("hidden");
     document.getElementById("mainContent").classList.remove("hidden");
+    setInterval(updateTimer, 1000);
     createHearts();
+    audio.play();
+    playPauseBtn.innerHTML = "⏸";
 }
 
-// Carrusel de tus fotos
-let images = ["foto1.jpeg","foto2.jpeg","foto3.jpeg","foto4.jpeg","foto5.jpeg"];
-let index = 0;
-setInterval(function(){
-    index = (index + 1) % images.length;
-    let imgElement = document.getElementById("carouselImage");
-    if(imgElement) imgElement.src = images[index];
-}, 3000);
+function togglePlay() {
+    if (audio.paused) {
+        audio.play();
+        playPauseBtn.innerHTML = "⏸";
+    } else {
+        audio.pause();
+        playPauseBtn.innerHTML = "▶";
+    }
+}
 
-// Función de corazones ROJOS subiendo
+function changeVolume() {
+    audio.volume = document.getElementById("volumeControl").value;
+}
+
 function createHearts(){
-    const container = document.getElementById("heartsContainer");
     setInterval(() => {
         const heart = document.createElement("div");
         heart.classList.add("heart");
-        heart.innerHTML = "❤️"; // Corazones rojos
+        heart.innerHTML = "❤️";
         heart.style.left = Math.random() * 100 + "vw";
         heart.style.fontSize = (Math.random() * 20 + 20) + "px";
-        container.appendChild(heart);
-
+        document.body.appendChild(heart);
         setTimeout(() => { heart.remove(); }, 5000);
     }, 400);
 }
+
+// Carrusel
+let images = ["foto1.jpeg","foto2.jpeg","foto3.jpeg","foto4.jpeg","foto5.jpeg"];
+let index = 0;
+setInterval(() => {
+    index = (index + 1) % images.length;
+    let img = document.getElementById("carouselImage");
+    if(img) img.src = images[index];
+}, 3000);
 </script>
 
 </body>
