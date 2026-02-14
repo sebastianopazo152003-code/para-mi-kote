@@ -13,9 +13,20 @@ body {
     color: white;
     text-align: center;
     overflow-x: hidden;
+    /* Centrado para celular */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .hidden { display: none; }
+
+/* Ajustes de contenedores para que nada se corte en el fono */
+#intro, #question, #mainContent {
+    width: 95%;
+    max-width: 500px;
+    margin: 0 auto;
+}
 
 button {
     padding: 15px 30px;
@@ -29,16 +40,30 @@ button {
 #yesBtn { background-color: #ff4d4d; color: white; }
 #noBtn { background-color: #444; color: white; position: relative; }
 
-.envelope { font-size: 80px; cursor: pointer; margin-top: 100px; }
+.envelope { font-size: 80px; cursor: pointer; margin-top: 50px; }
 
-/* El Reloj */
+/* RELOJ MÁS GRANDE */
 #timer {
+    font-size: 1.5rem; 
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    border-radius: 20px;
+    margin: 25px auto;
+    border: 2px solid white;
+}
+
+/* FRASE PEETA: Centrada y legible */
+.quote {
+    font-style: italic;
     font-size: 1.1rem;
-    background: rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    background: rgba(0,0,0,0.3);
     padding: 15px;
-    border-radius: 15px;
+    border-radius: 10px;
     margin: 20px auto;
-    width: 80%;
+    width: 90%;
+    line-height: 1.4;
 }
 
 .hearts {
@@ -46,13 +71,13 @@ button {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
+    z-index: 999;
 }
 
 .heart {
     position: absolute;
-    color: #ff0000; /* Rojos como pediste */
+    color: #ff0000;
     animation: float 6s linear infinite;
 }
 
@@ -61,32 +86,30 @@ button {
     100% {transform: translateY(-10vh) scale(0.5);}
 }
 
-.carousel { width: 80%; margin: 20px auto; }
-.carousel img { width: 100%; border-radius: 20px; }
+/* CARRUSEL AJUSTADO */
+.carousel { width: 90%; margin: 20px auto; }
+.carousel img { 
+    width: 100%; 
+    height: auto; 
+    border-radius: 20px; 
+    border: 3px solid white; 
+}
 
-.spotify { margin-top: 20px; }
+.spotify { margin: 20px auto; }
 
+/* CARTA: Texto centrado y fondo más oscuro para leer bien */
 .letter {
-    width: 80%;
+    width: 90%;
     margin: 30px auto;
-    background: rgba(0,0,0,0.4);
-    padding: 20px;
+    background: rgba(0,0,0,0.6);
+    padding: 25px;
     border-radius: 20px;
-    text-align: left;
-    line-height: 1.6;
+    text-align: center; /* LETRAS AL CENTRO */
+    line-height: 1.8;
+    font-size: 1.05rem;
 }
 
-.quote {
-    font-style: italic;
-    color: #ffcccc;
-    margin: 20px auto;
-    width: 80%;
-    border-left: 4px solid white;
-    padding-left: 10px;
-    text-align: left;
-}
-
-.bears-img { width: 180px; margin: 20px auto; display: block; border-radius: 15px; }
+.bears-img { width: 150px; margin: 15px auto; border-radius: 10px; }
 </style>
 </head>
 
@@ -98,7 +121,7 @@ button {
 </div>
 
 <div id="question" class="hidden">
-    <h1>Mi Kote… ¿Quieres ser mi San Valentín? ❤️</h1>
+    <h1 style="padding: 20px;">Mi Kote… ¿Quieres ser mi San Valentín? ❤️</h1>
     <br>
     <button id="yesBtn" onclick="accepted()">Sí 💖</button>
     <button id="noBtn" onclick="moveNo()">No 😢</button>
@@ -106,23 +129,23 @@ button {
 
 <div id="mainContent" class="hidden">
 
-    <h1>Feliz San Valentín Mi Kote ❤️</h1>
+    <h1 style="margin-top: 30px;">Feliz San Valentín Mi Kote ❤️</h1>
 
-    <div id="timer">Cargando nuestro tiempo...</div>
-
-    <div class="spotify">
-        <iframe style="border-radius:12px" 
-        src="https://open.spotify.com/embed/track/5XeF4ghbtuHkvnAKAUEPmR?utm_source=generator" 
-        width="300" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-        </iframe>
-    </div>
-
-    <img src="https://media.tenor.com/7S8WcW_Gf00AAAAM/milk-and-mocha-hug.gif" class="bears-img">
+    <div id="timer">Calculando nuestro amor...</div>
 
     <div class="quote">
         "Mis pesadillas suelen ser sobre perderte, así que eso me pasa cuando me doy cuenta de que estás a mi lado." <br>
         <small>— Peeta Mellark</small>
     </div>
+
+    <div class="spotify">
+        <iframe style="border-radius:12px" 
+        src="https://open.spotify.com/embed/track/3S0OXQeG6B3YSTpDpmv3tE?utm_source=generator" 
+        width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+        </iframe>
+    </div>
+
+    <img src="https://media.tenor.com/7S8WcW_Gf00AAAAM/milk-and-mocha-hug.gif" class="bears-img">
 
     <div class="carousel">
         <img id="carouselImage" src="foto1.jpeg">
@@ -131,8 +154,14 @@ button {
     <div class="letter">
         <p>
         Feliz San Valentín, mi Kote.<br><br>
-        Hago esta carta porque quiero entregarte algo único... (aquí va todo tu texto original completo)...<br><br>
+        Hago esta carta porque quiero entregarte algo único, porque eres alguien súper especial para mí. Eres mi Kote, mi lindo pollito que se levanta tempranito, mi lindo conejito revoltoso, mi estrella que me ilumina todos los días con su brillo y, sobre todo, mi dulce café de todas las mañanas.<br><br>
+        Ya vamos a cumplir 1 año y 3 meses juntos, y quiero cumplir muchos meses más a tu lado.<br><br>
+        Espero que te haya encantado el regalo de San Valentín, jejeje. ¿Te esperabas algo así? Pues pensé que, como soy ingeniero, tenía que darte algo más personalizado, jijiji.<br><br>
         Te amo, mi Kote preciosa.<br><br>
+        Ahora quiero decirte todo lo que me encanta de ti. En sí, me encanta todo de ti, pero quiero que sepas que me encanta que seas tan trabajadora. Me encanta que seas tan seria en algunas situaciones. Me encanta que seas tan risueña. Me encanta que seas tan emocional; siento que entregas la emoción a la relación. Me encanta cuando me muerdes, duele, pero es tan lindo. Me encanta que te gusten tanto las películas. Me encanta que cada vez que estás feliz sonrías de una forma que me da energías. Me encantan tus ojitos bellos.<br><br>
+        Te amo, te amo, te amo, te amo, te amo.<br><br>
+        Gracias por siempre estar animándome y apoyándome. Gracias por estar en este Día del Amor.<br><br>
+        Te amo, mi corazón.<br><br>
         <strong>Sebastián Opazo ❤️</strong>
         </p>
     </div>
@@ -141,7 +170,7 @@ button {
 <div class="hearts" id="heartsContainer"></div>
 
 <script>
-// Ajusta aquí tu fecha real (Año, Mes-1, Día)
+// FECHA: 14 de Noviembre 2024
 const startDate = new Date(2024, 10, 14); 
 
 function updateTimer() {
@@ -161,13 +190,12 @@ function openLetter(){
 
 let yesSize = 18;
 
-// TU FUNCIÓN ORIGINAL DEL BOTÓN NO
+// TU FUNCIÓN ORIGINAL DEL BOTÓN NO (Mantenida)
 function moveNo(){
     let noBtn = document.getElementById("noBtn");
-    let x = Math.random() * 300 - 150;
+    let x = Math.random() * 200 - 100;
     let y = Math.random() * 200 - 100;
     noBtn.style.transform = `translate(${x}px, ${y}px)`;
-
     yesSize += 5;
     document.getElementById("yesBtn").style.fontSize = yesSize + "px";
 }
@@ -179,13 +207,16 @@ function accepted(){
     createHearts();
 }
 
+// Carrusel
 let images = ["foto1.jpeg","foto2.jpeg","foto3.jpeg","foto4.jpeg","foto5.jpeg"];
 let index = 0;
 setInterval(function(){
     index = (index + 1) % images.length;
-    document.getElementById("carouselImage").src = images[index];
+    let img = document.getElementById("carouselImage");
+    if(img) img.src = images[index];
 }, 3000);
 
+// Corazones Rojos
 function createHearts(){
     const container = document.getElementById("heartsContainer");
     setInterval(() => {
