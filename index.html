@@ -8,12 +8,12 @@
 <style>
 body {
     margin: 0;
+    padding: 0;
     font-family: 'Arial', sans-serif;
     background: linear-gradient(135deg, #8B0000, #B22222);
     color: white;
-    text-align: center;
+    text-align: center; /* TODO AL CENTRO */
     overflow-x: hidden;
-    /* Centrado para celular */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,11 +21,12 @@ body {
 
 .hidden { display: none; }
 
-/* Ajustes de contenedores para que nada se corte en el fono */
+/* Contenedores responsivos para celular */
 #intro, #question, #mainContent {
-    width: 95%;
-    max-width: 500px;
+    width: 90%;
+    max-width: 450px;
     margin: 0 auto;
+    padding-top: 50px;
 }
 
 button {
@@ -37,33 +38,20 @@ button {
     transition: 0.3s;
 }
 
-#yesBtn { background-color: #ff4d4d; color: white; }
-#noBtn { background-color: #444; color: white; position: relative; }
+#yesBtn { background-color: #ff4d4d; color: white; margin: 10px; }
+#noBtn { background-color: #444; color: white; position: relative; margin: 10px; }
 
-.envelope { font-size: 80px; cursor: pointer; margin-top: 50px; }
+.envelope { font-size: 80px; cursor: pointer; }
 
-/* RELOJ MÁS GRANDE */
+/* Reloj más grande para que destaque */
 #timer {
-    font-size: 1.5rem; 
+    font-size: 1.3rem;
     font-weight: bold;
     background: rgba(0, 0, 0, 0.4);
     padding: 20px;
     border-radius: 20px;
-    margin: 25px auto;
-    border: 2px solid white;
-}
-
-/* FRASE PEETA: Centrada y legible */
-.quote {
-    font-style: italic;
-    font-size: 1.1rem;
-    color: #ffffff;
-    background: rgba(0,0,0,0.3);
-    padding: 15px;
-    border-radius: 10px;
     margin: 20px auto;
-    width: 90%;
-    line-height: 1.4;
+    border: 1px solid white;
 }
 
 .hearts {
@@ -71,7 +59,8 @@ button {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     z-index: 999;
 }
 
@@ -85,39 +74,42 @@ button {
     0% {transform: translateY(100vh) scale(1);}
     100% {transform: translateY(-10vh) scale(0.5);}
 }
-       
-<div class="spotify">
-    <iframe style="border-radius:12px" 
-    src="https://open.spotify.com/embed/track/3vST7I06v8Z7Z99STX7SIn?utm_source=generator&autoplay=1" 
-    width="100%" height="80" frameBorder="0" 
-    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-    </iframe>
-</div>
 
-/* CARRUSEL AJUSTADO */
-.carousel { width: 90%; margin: 20px auto; }
+.carousel { 
+    width: 100%; 
+    margin: 20px 0; 
+}
+
 .carousel img { 
     width: 100%; 
-    height: auto; 
     border-radius: 20px; 
-    border: 3px solid white; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
-
-
-/* CARTA: Texto centrado y fondo más oscuro para leer bien */
+/* LA CARTA: Centrada y optimizada para lectura en móvil */
 .letter {
-    width: 90%;
-    margin: 30px auto;
-    background: rgba(0,0,0,0.6);
+    width: 100%;
+    background: rgba(0,0,0,0.5);
     padding: 25px;
     border-radius: 20px;
-    text-align: center; /* LETRAS AL CENTRO */
-    line-height: 1.8;
-    font-size: 1.05rem;
+    text-align: center; /* TEXTO CENTRADO */
+    line-height: 1.6;
+    box-sizing: border-box;
+    margin-bottom: 50px;
+    font-size: 1.0rem;
 }
 
-.bears-img { width: 150px; margin: 15px auto; border-radius: 10px; }
+.quote {
+    font-style: italic;
+    color: #ffcccc;
+    margin: 20px 0;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.3);
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding: 15px 0;
+}
+
+.bears-img { width: 150px; margin: 20px auto; display: block; }
 </style>
 </head>
 
@@ -129,28 +121,30 @@ button {
 </div>
 
 <div id="question" class="hidden">
-    <h1 style="padding: 20px;">Mi Kote… ¿Quieres ser mi San Valentín? ❤️</h1>
-    <br>
-    <button id="yesBtn" onclick="accepted()">Sí 💖</button>
-    <button id="noBtn" onclick="moveNo()">No 😢</button>
+    <h1>Mi Kote… <br>¿Quieres ser mi San Valentín? ❤️</h1>
+    <div style="margin-top: 40px;">
+        <button id="yesBtn" onclick="accepted()">Sí 💖</button>
+        <button id="noBtn" onclick="moveNo()">No 😢</button>
+    </div>
 </div>
 
 <div id="mainContent" class="hidden">
 
-    <h1 style="margin-top: 30px;">Feliz San Valentín Mi Kote ❤️</h1>
+    <h1>Feliz San Valentín Mi Kote ❤️</h1>
 
-    <div id="timer">Calculando nuestro amor...</div>
+    <div id="timer">Cargando nuestro tiempo...</div>
+
+    <div class="spotify">
+        <iframe style="border-radius:12px" 
+        src="https://open.spotify.com/embed/track/3SPr996GI3pGCHX6u980N4?utm_source=generator&autoplay=1" 
+        width="100%" height="80" frameBorder="0" 
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+        </iframe>
+    </div>
 
     <div class="quote">
         "Mis pesadillas suelen ser sobre perderte, así que eso me pasa cuando me doy cuenta de que estás a mi lado." <br>
         <small>— Peeta Mellark</small>
-    </div>
-
-    <div class="spotify">
-        <iframe style="border-radius:12px" 
-        src="https://open.spotify.com/embed/track/3S0OXQeG6B3YSTpDpmv3tE?utm_source=generator" 
-        width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-        </iframe>
     </div>
 
     <img src="https://media.tenor.com/7S8WcW_Gf00AAAAM/milk-and-mocha-hug.gif" class="bears-img">
@@ -162,24 +156,33 @@ button {
     <div class="letter">
         <p>
         Feliz San Valentín, mi Kote.<br><br>
+
         Hago esta carta porque quiero entregarte algo único, porque eres alguien súper especial para mí. Eres mi Kote, mi lindo pollito que se levanta tempranito, mi lindo conejito revoltoso, mi estrella que me ilumina todos los días con su brillo y, sobre todo, mi dulce café de todas las mañanas.<br><br>
+
         Ya vamos a cumplir 1 año y 3 meses juntos, y quiero cumplir muchos meses más a tu lado.<br><br>
+
         Espero que te haya encantado el regalo de San Valentín, jejeje. ¿Te esperabas algo así? Pues pensé que, como soy ingeniero, tenía que darte algo más personalizado, jijiji.<br><br>
+
         Te amo, mi Kote preciosa.<br><br>
+
         Ahora quiero decirte todo lo que me encanta de ti. En sí, me encanta todo de ti, pero quiero que sepas que me encanta que seas tan trabajadora. Me encanta que seas tan seria en algunas situaciones. Me encanta que seas tan risueña. Me encanta que seas tan emocional; siento que entregas la emoción a la relación. Me encanta cuando me muerdes, duele, pero es tan lindo. Me encanta que te gusten tanto las películas. Me encanta que cada vez que estás feliz sonrías de una forma que me da energías. Me encantan tus ojitos bellos.<br><br>
+
         Te amo, te amo, te amo, te amo, te amo.<br><br>
+
         Gracias por siempre estar animándome y apoyándome. Gracias por estar en este Día del Amor.<br><br>
+
         Te amo, mi corazón.<br><br>
+
         <strong>Sebastián Opazo ❤️</strong>
         </p>
     </div>
+
 </div>
 
 <div class="hearts" id="heartsContainer"></div>
 
 <script>
-// FECHA: 14 de Noviembre 2024
-const startDate = new Date(2024, 10, 14); 
+const startDate = new Date(2024, 10, 14); // 14 de Noviembre 2024
 
 function updateTimer() {
     const now = new Date();
@@ -198,12 +201,13 @@ function openLetter(){
 
 let yesSize = 18;
 
-// TU FUNCIÓN ORIGINAL DEL BOTÓN NO (Mantenida)
 function moveNo(){
     let noBtn = document.getElementById("noBtn");
+    // Movimiento ajustado para que no se salga de la pantalla del móvil
     let x = Math.random() * 200 - 100;
     let y = Math.random() * 200 - 100;
     noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
     yesSize += 5;
     document.getElementById("yesBtn").style.fontSize = yesSize + "px";
 }
@@ -215,7 +219,6 @@ function accepted(){
     createHearts();
 }
 
-// Carrusel
 let images = ["foto1.jpeg","foto2.jpeg","foto3.jpeg","foto4.jpeg","foto5.jpeg"];
 let index = 0;
 setInterval(function(){
@@ -224,7 +227,6 @@ setInterval(function(){
     if(img) img.src = images[index];
 }, 3000);
 
-// Corazones Rojos
 function createHearts(){
     const container = document.getElementById("heartsContainer");
     setInterval(() => {
@@ -238,5 +240,6 @@ function createHearts(){
     }, 300);
 }
 </script>
+
 </body>
 </html>
