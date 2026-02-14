@@ -6,220 +6,147 @@
 <title>Para Mi Kote 💖</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;}
 
 body{
-    background:black;
-    color:#333;
-    overflow-x:hidden;
+background:black;
+color:white;
+text-align:center;
+overflow-x:hidden;
 }
 
-/* 🌌 CIELO ESTRELLADO */
-.cielo{
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:black;
-    z-index:-2;
+/* 🌌 Fondo estrellas */
+body::before{
+content:"";
+position:fixed;
+width:200%;
+height:200%;
+background:radial-gradient(white 1px, transparent 1px);
+background-size:50px 50px;
+animation:stars 60s linear infinite;
+opacity:0.3;
+z-index:-1;
+}
+@keyframes stars{
+from{transform:translateY(0);}
+to{transform:translateY(-500px);}
 }
 
-.cielo::after{
-    content:"";
-    position:absolute;
-    width:200%;
-    height:200%;
-    background:radial-gradient(white 1px, transparent 1px);
-    background-size:50px 50px;
-    animation:estrellas 60s linear infinite;
-    opacity:0.4;
+/* 🎵 Spotify */
+.spotify{
+margin-top:30px;
+display:flex;
+justify-content:center;
 }
 
-@keyframes estrellas{
-    from{transform:translateY(0);}
-    to{transform:translateY(-500px);}
-}
-
-/* 💌 SOBRE */
+/* 💌 Carta */
 .sobre{
-    position:relative;
-    width:90%;
-    max-width:500px;
-    margin:80px auto;
-    perspective:1000px;
+margin:60px auto;
+width:90%;
+max-width:550px;
+perspective:1000px;
+cursor:pointer;
 }
 
 .tapa{
-    width:100%;
-    height:120px;
-    background:#ff004c;
-    position:absolute;
-    top:0;
-    transform-origin:top;
-    transition:transform 1s;
-    border-radius:10px 10px 0 0;
-    z-index:2;
+height:120px;
+background:#ff004c;
+border-radius:10px 10px 0 0;
+transform-origin:top;
+transition:1s;
 }
 
 .carta{
-    background:white;
-    padding:25px;
-    border-radius:10px;
-    transform:translateY(120px);
-    transition:transform 1s;
-    text-align:center;
+background:white;
+color:#333;
+padding:30px;
+border-radius:0 0 10px 10px;
+transform:translateY(-120px);
+transition:1s;
 }
 
-.sobre.abierto .tapa{
-    transform:rotateX(-180deg);
-}
+.abierto .tapa{transform:rotateX(-180deg);}
+.abierto .carta{transform:translateY(0);}
 
-.sobre.abierto .carta{
-    transform:translateY(0);
-}
+h1{color:#ff004c;margin-bottom:10px;}
 
-h1{
-    color:#ff004c;
-    margin-bottom:15px;
-}
-
-/* 🌳 ÁRBOL */
-.arbol{
-    margin:20px auto;
-    width:150px;
-    height:180px;
-    position:relative;
-}
-
-.tronco{
-    width:25px;
-    height:60px;
-    background:#5a2d0c;
-    position:absolute;
-    bottom:0;
-    left:50%;
-    transform:translateX(-50%);
-    border-radius:5px;
-}
-
-.copa{
-    width:140px;
-    height:120px;
-    background:#ff004c;
-    border-radius:50%;
-    position:absolute;
-    bottom:50px;
-    left:50%;
-    transform:translateX(-50%);
-    animation:latido 2s infinite;
-}
-
+/* Árbol */
+.arbol{margin:20px auto;width:120px;height:150px;position:relative;}
+.tronco{width:20px;height:50px;background:#5a2d0c;position:absolute;bottom:0;left:50%;transform:translateX(-50%);}
+.copa{width:120px;height:100px;background:#ff004c;border-radius:50%;position:absolute;bottom:40px;left:50%;transform:translateX(-50%);animation:latido 2s infinite;}
 @keyframes latido{
-    0%{transform:translateX(-50%) scale(1);}
-    50%{transform:translateX(-50%) scale(1.05);}
-    100%{transform:translateX(-50%) scale(1);}
+0%{transform:translateX(-50%) scale(1);}
+50%{transform:translateX(-50%) scale(1.05);}
+100%{transform:translateX(-50%) scale(1);}
 }
 
-/* ⏳ RELOJ */
-#reloj{
-    margin-top:15px;
-    font-size:22px;
-    font-weight:bold;
-    color:#ff004c;
-}
+/* Reloj */
+#reloj{margin-top:15px;font-size:20px;color:#ff004c;font-weight:bold;}
 
-#reloj span{
-    font-size:28px;
-}
-
-/* BOTONES */
-.buttons{
-    margin-top:20px;
-}
-
+/* Botones */
+.buttons{margin-top:20px;}
 button{
-    padding:10px 20px;
-    margin:10px;
-    border:none;
-    border-radius:20px;
-    font-size:16px;
-    cursor:pointer;
-    transition:0.3s;
+padding:12px 25px;
+margin:10px;
+border:none;
+border-radius:25px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
 }
 
-#yesBtn{
-    background:#ff004c;
-    color:white;
+#yesBtn{background:#ff004c;color:white;}
+#noBtn{background:gray;color:white;}
+
+button:hover{transform:scale(1.1);}
+
+#respuesta{margin-top:15px;color:#ff004c;font-weight:bold;}
+
+/* Galería */
+.galeria{
+margin-top:40px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
 }
 
-#noBtn{
-    background:gray;
-    color:white;
+.galeria img{
+width:150px;
+border-radius:15px;
+transition:0.3s;
 }
 
-button:hover{
-    transform:scale(1.1);
-}
-
-#respuesta{
-    margin-top:20px;
-    font-size:20px;
-    color:#ff004c;
-    font-weight:bold;
-}
-
-/* ✨ MENSAJE SECRETO */
-.mensaje-secreto{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.95);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    opacity:0;
-    pointer-events:none;
-    transition:opacity 1s ease;
-    z-index:999;
-}
-
-.contenido-secreto{
-    color:white;
-    font-size:26px;
-    max-width:80%;
-}
-
-.mensaje-secreto.activo{
-    opacity:1;
-    pointer-events:all;
+.galeria img:hover{
+transform:scale(1.1);
 }
 </style>
 </head>
 
 <body>
 
-<div class="cielo"></div>
+<!-- 🎵 Spotify -->
+<div class="spotify">
+<iframe style="border-radius:12px"
+src="https://open.spotify.com/embed/track/5XeFesFbtLpXzIVDNQP22n"
+width="300"
+height="80"
+frameBorder="0"
+allowfullscreen=""
+allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+</iframe>
+</div>
 
+<!-- 💌 Carta -->
 <div class="sobre" id="sobre">
 <div class="tapa"></div>
-
 <div class="carta">
 
 <h1>Para Mi Kote 💖</h1>
 
-<p>
-Feliz San Valentín Mi Kote.  
-Hice esta carta porque quiero entregarte algo único, porque eres alguien súper especial para mí.
-</p>
+<p>Feliz San Valentín Mi Kote. Hice esta carta porque quiero entregarte algo único, porque eres alguien súper especial para mí.</p>
 
-<p>
-"Mis pesadillas son sobre perderte a ti.  
-Pero se me pasa cuando veo que estás a mi lado"
-</p>
+<p><strong>"Mis pesadillas son sobre perderte a ti. Pero se me pasa cuando veo que estás a mi lado"</strong></p>
 
 <div class="arbol">
 <div class="tronco"></div>
@@ -227,124 +154,95 @@ Pero se me pasa cuando veo que estás a mi lado"
 </div>
 
 <h3>Estamos juntos hace...</h3>
-<div id="reloj">
-<span id="dias">0</span> días
-<span id="horas">0</span> horas
-<span id="minutos">0</span> minutos
-<span id="segundos">0</span> segundos
-</div>
+<div id="reloj"></div>
 
 <div class="buttons">
 <button id="yesBtn">Sí 💖</button>
 <button id="noBtn">No 😢</button>
 </div>
 
-<p id="respuesta"></p>
+<div id="respuesta"></div>
 
 </div>
 </div>
 
-<div class="mensaje-secreto" id="mensajeSecreto">
-<div class="contenido-secreto">
-Mis pesadillas son sobre perderte a ti.<br>
-Pero se me pasa cuando veo que estás a mi lado 💖
-</div>
+<!-- 🖼️ Galería -->
+<div class="galeria">
+<img src="foto1.jpeg">
+<img src="foto2.jpeg">
+<img src="foto3.jpeg">
+<img src="foto4.jpeg">
+<img src="foto5.jpeg">
 </div>
 
 <script>
-const yesBtn=document.getElementById("yesBtn");
-const noBtn=document.getElementById("noBtn");
-const respuesta=document.getElementById("respuesta");
-const sobre=document.getElementById("sobre");
-const mensajeSecreto=document.getElementById("mensajeSecreto");
-
-let size=1;
-
 /* Abrir carta */
-document.body.addEventListener("click",()=>{
-sobre.classList.add("abierto");
-},{once:true});
-
-/* Botón NO */
-noBtn.addEventListener("click",function(){
-const x=Math.random()*200-100;
-const y=Math.random()*200-100;
-noBtn.style.position="relative";
-noBtn.style.left=x+"px";
-noBtn.style.top=y+"px";
-size+=0.2;
-yesBtn.style.transform=`scale(${size})`;
+document.getElementById("sobre").addEventListener("click", function(){
+this.classList.toggle("abierto");
 });
 
-/* Botón SÍ */
-yesBtn.addEventListener("click",function(){
-respuesta.innerHTML="💖 Sabía que dirías que sí 💖";
-lanzarConfeti();
-});
-
-/* Confeti */
-function lanzarConfeti(){
-for(let i=0;i<60;i++){
-const confeti=document.createElement("div");
-confeti.innerHTML="💖";
-confeti.style.position="fixed";
-confeti.style.left=Math.random()*100+"vw";
-confeti.style.top="-10px";
-confeti.style.fontSize="20px";
-confeti.style.animation="caer 3s linear forwards";
-document.body.appendChild(confeti);
-setTimeout(()=>confeti.remove(),3000);
-}
-}
-
-const style=document.createElement("style");
-style.innerHTML=`
-@keyframes caer{
-to{
-transform:translateY(100vh);
-opacity:0;
-}
-}`;
-document.head.appendChild(style);
-
-/* RELOJ */
-const fechaInicio=new Date("2024-11-19T00:00:00");
+/* Contador */
+const fechaInicio = new Date("2024-11-19T00:00:00");
 
 function actualizarReloj(){
-const ahora=new Date();
-const diferencia=ahora-fechaInicio;
+const ahora = new Date();
+const diferencia = ahora - fechaInicio;
 
-const segundos=Math.floor(diferencia/1000)%60;
-const minutos=Math.floor(diferencia/1000/60)%60;
-const horas=Math.floor(diferencia/1000/60/60)%24;
-const dias=Math.floor(diferencia/1000/60/60/24);
+const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+const horas = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
+const minutos = Math.floor((diferencia / (1000 * 60)) % 60);
+const segundos = Math.floor((diferencia / 1000) % 60);
 
-document.getElementById("dias").textContent=dias;
-document.getElementById("horas").textContent=horas;
-document.getElementById("minutos").textContent=minutos;
-document.getElementById("segundos").textContent=segundos;
+document.getElementById("reloj").innerHTML =
+`${dias} días ${horas} horas ${minutos} minutos ${segundos} segundos 💖`;
 }
 
-setInterval(actualizarReloj,1000);
-actualizarReloj();
+setInterval(actualizarReloj, 1000);
 
-/* Mensaje secreto con mantener presionado */
-let presionado;
+/* Botones */
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const respuesta = document.getElementById("respuesta");
 
-yesBtn.addEventListener("mousedown",()=>{
-presionado=setTimeout(()=>{
-mensajeSecreto.classList.add("activo");
+yesBtn.addEventListener("click", function(){
+yesBtn.style.transform = "scale(1.3)";
+respuesta.innerHTML = "Sabía que dirías que sí 💖✨";
+confeti();
+});
+
+noBtn.addEventListener("click", function(){
+noBtn.style.position = "absolute";
+noBtn.style.left = Math.random()*80 + "%";
+noBtn.style.top = Math.random()*80 + "%";
+});
+
+/* Confeti simple */
+function confeti(){
+for(let i=0;i<100;i++){
+let conf = document.createElement("div");
+conf.style.position="fixed";
+conf.style.width="5px";
+conf.style.height="5px";
+conf.style.background="hsl("+Math.random()*360+"deg,100%,50%)";
+conf.style.left=Math.random()*100+"%";
+conf.style.top="-10px";
+conf.style.opacity=1;
+conf.style.transition="2s";
+document.body.appendChild(conf);
+
+setTimeout(()=>{
+conf.style.top="100%";
+conf.style.opacity=0;
+},10);
+
+setTimeout(()=>{
+conf.remove();
 },2000);
-});
-
-yesBtn.addEventListener("mouseup",()=>clearTimeout(presionado));
-yesBtn.addEventListener("mouseleave",()=>clearTimeout(presionado));
-
-mensajeSecreto.addEventListener("click",()=>{
-mensajeSecreto.classList.remove("activo");
-});
+}
+}
 </script>
 
 </body>
 </html>
+
 
