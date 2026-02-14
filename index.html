@@ -3,208 +3,348 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Mi Kote ❤️</title>
+<title>Para Mi Kote 💖</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #8B0000, #B22222);
-    color: white;
-    text-align: center;
-    overflow-x: hidden;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
-.hidden {
-    display: none;
+body{
+    background:black;
+    color:#333;
+    overflow-x:hidden;
 }
 
-button {
-    padding: 15px 30px;
-    font-size: 18px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: 0.3s;
+/* 🌌 CIELO ESTRELLADO */
+.cielo{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:black;
+    z-index:-2;
 }
 
-#yesBtn {
-    background-color: #ff4d4d;
-    color: white;
+.cielo::after{
+    content:"";
+    position:absolute;
+    width:200%;
+    height:200%;
+    background:radial-gradient(white 1px, transparent 1px);
+    background-size:50px 50px;
+    animation:estrellas 60s linear infinite;
+    opacity:0.4;
 }
 
-#noBtn {
-    background-color: #444;
-    color: white;
-    position: relative;
+@keyframes estrellas{
+    from{transform:translateY(0);}
+    to{transform:translateY(-500px);}
 }
 
-.envelope {
-    font-size: 80px;
-    cursor: pointer;
-    margin-top: 100px;
+/* 💌 SOBRE */
+.sobre{
+    position:relative;
+    width:90%;
+    max-width:500px;
+    margin:80px auto;
+    perspective:1000px;
 }
 
-.hearts {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    top: 0;
-    left: 0;
+.tapa{
+    width:100%;
+    height:120px;
+    background:#ff004c;
+    position:absolute;
+    top:0;
+    transform-origin:top;
+    transition:transform 1s;
+    border-radius:10px 10px 0 0;
+    z-index:2;
 }
 
-.heart {
-    position: absolute;
-    color: #3da5ff;
-    animation: float 6s linear infinite;
+.carta{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    transform:translateY(120px);
+    transition:transform 1s;
+    text-align:center;
 }
 
-@keyframes float {
-    0% {transform: translateY(100vh) scale(1);}
-    100% {transform: translateY(-10vh) scale(0.5);}
+.sobre.abierto .tapa{
+    transform:rotateX(-180deg);
 }
 
-.carousel {
-    width: 80%;
-    margin: 20px auto;
+.sobre.abierto .carta{
+    transform:translateY(0);
 }
 
-.carousel img {
-    width: 100%;
-    border-radius: 20px;
+h1{
+    color:#ff004c;
+    margin-bottom:15px;
 }
 
-.spotify {
-    margin-top: 20px;
+/* 🌳 ÁRBOL */
+.arbol{
+    margin:20px auto;
+    width:150px;
+    height:180px;
+    position:relative;
 }
 
-.letter {
-    width: 80%;
-    margin: 30px auto;
-    background: rgba(0,0,0,0.4);
-    padding: 20px;
-    border-radius: 20px;
-    text-align: left;
-    line-height: 1.6;
+.tronco{
+    width:25px;
+    height:60px;
+    background:#5a2d0c;
+    position:absolute;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    border-radius:5px;
+}
+
+.copa{
+    width:140px;
+    height:120px;
+    background:#ff004c;
+    border-radius:50%;
+    position:absolute;
+    bottom:50px;
+    left:50%;
+    transform:translateX(-50%);
+    animation:latido 2s infinite;
+}
+
+@keyframes latido{
+    0%{transform:translateX(-50%) scale(1);}
+    50%{transform:translateX(-50%) scale(1.05);}
+    100%{transform:translateX(-50%) scale(1);}
+}
+
+/* ⏳ RELOJ */
+#reloj{
+    margin-top:15px;
+    font-size:22px;
+    font-weight:bold;
+    color:#ff004c;
+}
+
+#reloj span{
+    font-size:28px;
+}
+
+/* BOTONES */
+.buttons{
+    margin-top:20px;
+}
+
+button{
+    padding:10px 20px;
+    margin:10px;
+    border:none;
+    border-radius:20px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+#yesBtn{
+    background:#ff004c;
+    color:white;
+}
+
+#noBtn{
+    background:gray;
+    color:white;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+#respuesta{
+    margin-top:20px;
+    font-size:20px;
+    color:#ff004c;
+    font-weight:bold;
+}
+
+/* ✨ MENSAJE SECRETO */
+.mensaje-secreto{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.95);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 1s ease;
+    z-index:999;
+}
+
+.contenido-secreto{
+    color:white;
+    font-size:26px;
+    max-width:80%;
+}
+
+.mensaje-secreto.activo{
+    opacity:1;
+    pointer-events:all;
 }
 </style>
 </head>
 
 <body>
 
-<!-- SOBRE -->
-<div id="intro">
-    <div class="envelope" onclick="openLetter()">💌</div>
-    <h2>Tienes una carta nueva</h2>
+<div class="cielo"></div>
+
+<div class="sobre" id="sobre">
+<div class="tapa"></div>
+
+<div class="carta">
+
+<h1>Para Mi Kote 💖</h1>
+
+<p>
+Feliz San Valentín Mi Kote.  
+Hice esta carta porque quiero entregarte algo único, porque eres alguien súper especial para mí.
+</p>
+
+<p>
+"Mis pesadillas son sobre perderte a ti.  
+Pero se me pasa cuando veo que estás a mi lado"
+</p>
+
+<div class="arbol">
+<div class="tronco"></div>
+<div class="copa"></div>
 </div>
 
-<!-- PREGUNTA -->
-<div id="question" class="hidden">
-    <h1>Mi Kote… ¿Quieres ser mi San Valentín? ❤️</h1>
-    <br>
-    <button id="yesBtn" onclick="accepted()">Sí 💖</button>
-    <button id="noBtn" onclick="moveNo()">No 😢</button>
+<h3>Estamos juntos hace...</h3>
+<div id="reloj">
+<span id="dias">0</span> días
+<span id="horas">0</span> horas
+<span id="minutos">0</span> minutos
+<span id="segundos">0</span> segundos
 </div>
 
-<!-- CONTENIDO FINAL -->
-<div id="mainContent" class="hidden">
-
-    <h1>Feliz San Valentín Mi Kote ❤️</h1>
-
-    <!-- Spotify -->
-    <div class="spotify">
-        <iframe style="border-radius:12px"
-        src="https://open.spotify.com/embed/track/5XeFesFbtLpXzIVDNQP22n"
-        width="300"
-        height="80"
-        frameBorder="0"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-        </iframe>
-    </div>
-
-    <!-- Carrusel -->
-    <div class="carousel">
-        <img id="carouselImage" src="foto1.jpeg">
-    </div>
-
-    <!-- Carta -->
-    <div class="letter">
-        <p>
-        Feliz San Valentín, mi Kote.<br><br>
-
-        Hago esta carta porque quiero entregarte algo único, porque eres alguien súper especial para mí. Eres mi Kote, mi lindo pollito que se levanta tempranito, mi lindo conejito revoltoso, mi estrella que me ilumina todos los días con su brillo y, sobre todo, mi dulce café de todas las mañanas.<br><br>
-
-        Ya vamos a cumplir 1 año y 3 meses juntos, y quiero cumplir muchos meses más a tu lado.<br><br>
-
-        Espero que te haya encantado el regalo de San Valentín, jejeje. ¿Te esperabas algo así? Pues pensé que, como soy ingeniero, tenía que darte algo más personalizado, jijiji.<br><br>
-
-        Te amo, mi Kote preciosa.<br><br>
-
-        Ahora quiero decirte todo lo que me encanta de ti. En sí, me encanta todo de ti, pero quiero que sepas que me encanta que seas tan trabajadora. Me encanta que seas tan seria en algunas situaciones. Me encanta que seas tan risueña. Me encanta que seas tan emocional; siento que entregas la emoción a la relación. Me encanta cuando me muerdes, duele, pero es tan lindo. Me encanta que te gusten tanto las películas. Me encanta que cada vez que estás feliz sonrías de una forma que me da energías. Me encantan tus ojitos bellos.<br><br>
-
-        Te amo, te amo, te amo, te amo, te amo.<br><br>
-
-        Gracias por siempre estar animándome y apoyándome. Gracias por estar en este Día del Amor.<br><br>
-
-        Te amo, mi corazón.<br><br>
-
-        Sebastián Opazo ❤️
-        </p>
-    </div>
-
+<div class="buttons">
+<button id="yesBtn">Sí 💖</button>
+<button id="noBtn">No 😢</button>
 </div>
 
-<div class="hearts" id="heartsContainer"></div>
+<p id="respuesta"></p>
+
+</div>
+</div>
+
+<div class="mensaje-secreto" id="mensajeSecreto">
+<div class="contenido-secreto">
+Mis pesadillas son sobre perderte a ti.<br>
+Pero se me pasa cuando veo que estás a mi lado 💖
+</div>
+</div>
 
 <script>
-function openLetter(){
-    document.getElementById("intro").classList.add("hidden");
-    document.getElementById("question").classList.remove("hidden");
+const yesBtn=document.getElementById("yesBtn");
+const noBtn=document.getElementById("noBtn");
+const respuesta=document.getElementById("respuesta");
+const sobre=document.getElementById("sobre");
+const mensajeSecreto=document.getElementById("mensajeSecreto");
+
+let size=1;
+
+/* Abrir carta */
+document.body.addEventListener("click",()=>{
+sobre.classList.add("abierto");
+},{once:true});
+
+/* Botón NO */
+noBtn.addEventListener("click",function(){
+const x=Math.random()*200-100;
+const y=Math.random()*200-100;
+noBtn.style.position="relative";
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
+size+=0.2;
+yesBtn.style.transform=`scale(${size})`;
+});
+
+/* Botón SÍ */
+yesBtn.addEventListener("click",function(){
+respuesta.innerHTML="💖 Sabía que dirías que sí 💖";
+lanzarConfeti();
+});
+
+/* Confeti */
+function lanzarConfeti(){
+for(let i=0;i<60;i++){
+const confeti=document.createElement("div");
+confeti.innerHTML="💖";
+confeti.style.position="fixed";
+confeti.style.left=Math.random()*100+"vw";
+confeti.style.top="-10px";
+confeti.style.fontSize="20px";
+confeti.style.animation="caer 3s linear forwards";
+document.body.appendChild(confeti);
+setTimeout(()=>confeti.remove(),3000);
+}
 }
 
-let yesSize = 18;
+const style=document.createElement("style");
+style.innerHTML=`
+@keyframes caer{
+to{
+transform:translateY(100vh);
+opacity:0;
+}
+}`;
+document.head.appendChild(style);
 
-function moveNo(){
-    let noBtn = document.getElementById("noBtn");
-    let x = Math.random() * 300 - 150;
-    let y = Math.random() * 200 - 100;
-    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+/* RELOJ */
+const fechaInicio=new Date("2024-11-19T00:00:00");
 
-    yesSize += 5;
-    document.getElementById("yesBtn").style.fontSize = yesSize + "px";
+function actualizarReloj(){
+const ahora=new Date();
+const diferencia=ahora-fechaInicio;
+
+const segundos=Math.floor(diferencia/1000)%60;
+const minutos=Math.floor(diferencia/1000/60)%60;
+const horas=Math.floor(diferencia/1000/60/60)%24;
+const dias=Math.floor(diferencia/1000/60/60/24);
+
+document.getElementById("dias").textContent=dias;
+document.getElementById("horas").textContent=horas;
+document.getElementById("minutos").textContent=minutos;
+document.getElementById("segundos").textContent=segundos;
 }
 
-function accepted(){
-    document.getElementById("question").classList.add("hidden");
-    document.getElementById("mainContent").classList.remove("hidden");
-    createHearts();
-}
+setInterval(actualizarReloj,1000);
+actualizarReloj();
 
-let images = ["foto1.jpeg","foto2.jpeg","foto3.jpeg","foto4.jpeg","foto5.jpeg"];
-let index = 0;
+/* Mensaje secreto con mantener presionado */
+let presionado;
 
-setInterval(function(){
-    index = (index + 1) % images.length;
-    document.getElementById("carouselImage").src = images[index];
-}, 3000);
+yesBtn.addEventListener("mousedown",()=>{
+presionado=setTimeout(()=>{
+mensajeSecreto.classList.add("activo");
+},2000);
+});
 
-function createHearts(){
-    const container = document.getElementById("heartsContainer");
-    setInterval(() => {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "💙";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = (Math.random() * 20 + 20) + "px";
-        container.appendChild(heart);
+yesBtn.addEventListener("mouseup",()=>clearTimeout(presionado));
+yesBtn.addEventListener("mouseleave",()=>clearTimeout(presionado));
 
-        setTimeout(() => {
-            heart.remove();
-        }, 6000);
-    }, 300);
-}
+mensajeSecreto.addEventListener("click",()=>{
+mensajeSecreto.classList.remove("activo");
+});
 </script>
 
 </body>
 </html>
+
